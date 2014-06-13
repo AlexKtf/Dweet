@@ -1,4 +1,4 @@
-= cache(@playlist) do
+= cache([@playlist, @plist.videos.count]) do
   = @plist.title
   = raw @plist.embed_code
   - @plist.videos.each do |video|

@@ -2,7 +2,7 @@
 %html
   %head
     %title Dweet
-    = stylesheet_link_tag 'application', media: 'all'
+    = stylesheet_link_tag 'admin', media: 'all'
     = csrf_meta_tags
   %body#admin
 
@@ -12,6 +12,7 @@
     - if user_signed_in? and current_user.is_admin
       = link_to 'Dashboard', admin_dashboard_index_path
 
-    = yield
+    .container
+      = yield
 
     = javascript_include_tag 'application'

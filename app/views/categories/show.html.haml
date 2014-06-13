@@ -1,4 +1,4 @@
-= cache([@category, @category.playlists.maximum(:updated_at)]) do
+= cache([@category, @category.playlists.maximum(:updated_at), @category.playlists.count]) do
   = @category.name
   - @category.playlists.order(:created_at).each do |playlist|
     - vid = VideoInfo.new(playlist.url)

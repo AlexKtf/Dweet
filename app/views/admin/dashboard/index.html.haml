@@ -1,14 +1,18 @@
-= render 'admin/categories/new'
-- Category.all.each do |category|
-  = link_to category.name, admin_category_path(category.id)
-  %br
-  = category.playlists.count
-  %br
-  = link_to 'X', admin_category_path(category.id), method: :delete
-  %br
-= render 'admin/artists/new'
-- Artist.all.each do |artist|
-  = link_to artist.name, admin_artist_path(artist.id)
-  %br
-  = link_to 'X', admin_artist_path(artist.id), method: :delete
-  %br
+.col-xs-6
+  = render 'admin/categories/new'
+  %hr
+  %ul.list-group
+    - Category.all.each do |category|
+      %li.list-group-item
+        = link_to category.name, admin_category_path(category.id)
+        %span.badge
+          = "Playlists : #{category.playlists.count}"
+        / # = link_to 'Supprimer', admin_category_path(category.id), method: :delete, class: 'btn btn-danger'
+.col-xs-6
+  = render 'admin/artists/new'
+  %ul.list-group
+    - Artist.all.each do |artist|
+      %li.list-group-item
+        = link_to artist.name, admin_artist_path(artist.id)
+        %br
+        = link_to 'X', admin_artist_path(artist.id), method: :delete
