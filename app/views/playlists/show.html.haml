@@ -1,0 +1,7 @@
+= cache(@playlist) do
+  = @plist.title
+  = raw @plist.embed_code
+  - @plist.videos.each do |video|
+    = image_tag video.thumbnail_small
+    = video.title
+    %br

@@ -1,0 +1,6 @@
+#category-new
+  %h2 Ajouter une catégorie
+  = simple_form_for @category, url: admin_categories_path do |f|
+    = f.input :name, required: false, autofocus: true
+    .form-actions
+      = f.button :submit, 'Ajouter'

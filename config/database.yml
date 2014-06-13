@@ -1,0 +1,26 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: dweet_development
+  pool: 5
+  host: localhost
+  username: ideesbebe
+  password: sefsef
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: dweet_test
+  host: localhost
+  pool: 5
+  username: ideesbebe
+  password: sefsef
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: dweet_production
+  host: localhost
+  pool: 5
+  username: ideesbebe
+  password: sefsef

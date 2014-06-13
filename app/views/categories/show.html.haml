@@ -1,0 +1,7 @@
+= cache([@category, @category.playlists.maximum(:updated_at)]) do
+  = @category.name
+  - @category.playlists.order(:created_at).each do |playlist|
+    - vid = VideoInfo.new(playlist.url)
+    = link_to vid.title, playlist_path(playlist.id)
+    = image_tag vid.videos.sample.thumbnail_small
+    = vid.videos.count

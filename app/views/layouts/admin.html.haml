@@ -1,0 +1,17 @@
+!!!5
+%html
+  %head
+    %title Dweet
+    = stylesheet_link_tag 'application', media: 'all'
+    = csrf_meta_tags
+  %body#admin
+
+    - flash.each do |k, v|
+      %p{ class: "flash-#{k}"}= v
+
+    - if user_signed_in? and current_user.is_admin
+      = link_to 'Dashboard', admin_dashboard_index_path
+
+    = yield
+
+    = javascript_include_tag 'application'

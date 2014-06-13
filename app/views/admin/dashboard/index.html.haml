@@ -1,0 +1,14 @@
+= render 'admin/categories/new'
+- Category.all.each do |category|
+  = link_to category.name, admin_category_path(category.id)
+  %br
+  = category.playlists.count
+  %br
+  = link_to 'X', admin_category_path(category.id), method: :delete
+  %br
+= render 'admin/artists/new'
+- Artist.all.each do |artist|
+  = link_to artist.name, admin_artist_path(artist.id)
+  %br
+  = link_to 'X', admin_artist_path(artist.id), method: :delete
+  %br

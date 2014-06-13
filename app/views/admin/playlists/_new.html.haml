@@ -1,0 +1,7 @@
+#playlist-new
+  %h2 Ajouter une playlist
+  = simple_form_for @playlist, url: admin_playlists_path do |f|
+    = f.input :url, required: false, autofocus: true
+    = f.input :category_id, as: :hidden, input_html: { value: @category.id }
+    .form-actions
+      = f.button :submit, 'Ajouter'
