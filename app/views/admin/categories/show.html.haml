@@ -15,5 +15,3 @@
           = vid.title
           = link_to 'X', admin_playlist_path(playlist.id), method: :delete, class: 'pull-right btn btn-danger'
         = "Nombre de videos : #{vid.videos.count}"
-        %br
-        = "Dernière mise à jour : #{distance_of_time_in_words(Time.now.to_i - playlist.updated_at.to_i)}"
