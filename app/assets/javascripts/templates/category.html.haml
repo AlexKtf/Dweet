@@ -1,0 +1,24 @@
+.col-md-12.category-show
+  #search-category
+    %form{ role: 'form' }
+      %a{ data: { 'ng-href' => '/' } }
+        %span.glyphicon.glyphicon-chevron-left
+      %input.form-control{ placeholder: 'Search Playlist, Video...', data: { 'ng-model' => 'searchText.title' } }
+      .btn-group
+        %button.btn.btn-default{ type: 'button', data: { 'ng-click' => "itemTypeFilter('videos')", 'ng-class' => "{ active: selectedFilter == 'videos' }" } }
+          Videos
+        %button.btn.btn-default{ type: 'button', data: { 'ng-click' => "itemTypeFilter('all')", 'ng-class' => "{ active: selectedFilter == 'all' }" } }
+          All
+        %button.btn.btn-default{ type: 'button', data: { 'ng-click' => "itemTypeFilter('playlists')", 'ng-class' => "{ active: selectedFilter == 'playlists' }" } }
+          Playlists
+  .media.media-category.col-md-6{ type: 'text', data: { 'ng-repeat' => 'item in items | filter:searchText' } }
+    %a.pull-left.media-category-link{ data: { 'ng-href' => "{{item.playlist_id !== null ? 'playlists' : 'videos'}}/{{item.id}}" } }
+      %img.media-object.media-category-image{ data: { 'ng-src' => '{{item.image_preview_url}}' } }
+    .media-body
+      %a.media-category-link{ data: { 'ng-href' => "{{item.playlist_id !== null ? 'playlists' : 'videos'}}/{{item.id}}" } }
+        %h4.media-category-heading
+          {{item.title}}
+      .item-type.badge{ data: { 'ng-class' => "item.playlist_id !== null ? 'item-type-playlist' : 'item-type-video'" } }
+        {{item.playlist_id !== null ? 'Playlist' : 'Video'}}
+      .media-category-stat
+        Duration : 38 minutes

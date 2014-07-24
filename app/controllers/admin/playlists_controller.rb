@@ -8,9 +8,9 @@ class Admin::PlaylistsController < Admin::BaseController
   def create
     @playlist = Playlist.new(playlist_params)
     if @playlist.save
-      redirect_to admin_playlist_path(@playlist.id), notice: 'Success!'
+      redirect_to admin_category_path(params[:playlist][:category_id]), notice: 'Success!'
     else
-      redirect_to admin_category_path(params[:playlist][:category_id]), alert: 'Un nom est nécessaire'
+      redirect_to admin_category_path(params[:playlist][:category_id]), alert: 'La playlist est introuvable'
     end
   end
 

@@ -1,0 +1,18 @@
+.col-md-12.main-category-block{ data: { 'ng-repeat' => 'category in categories' } }
+  .col-md-4.category-title-block
+    %h3.category-title
+      {{ category.name }}
+    %a.media-object-explore.btn.btn-primary{ data: { 'ng-href' => 'categories/{{category.id}}'} }
+      Explore
+  .col-md-8
+    .media
+      %a.pull-left.media-object-link{ data: { 'ng-href' => 'playlist/{{category.playlists[0].id}}' } }
+        %img.media-object.media-object-image{ data: { 'ng-src' => '{{category.playlists[0].image_preview_url}}' } }
+        .media-object-description
+          {{category.playlists[0].title}}
+      .media-body
+        %a.pull-left.media-object-link{ data: { 'ng-href' => 'video/{{category.videos[0].id}}' } }
+          %img.media-body-image{ data: { 'ng-src' => '{{category.videos[0].image_preview_url}}'} }
+        %a.pull-left.media-object-link{ data: { 'ng-href' => 'video/{{category.videos[1].id}}' } }
+          %img.media-body-image{ data: { 'ng-src' => '{{category.videos[1].image_preview_url}}'} }
+  %hr

@@ -1,17 +1,37 @@
 .jumbotron
   %h1= @category.name
-= render 'admin/playlists/new'
-%hr
-- if @category.playlists.count.zero?
-  = 'Aucune playlists'
-= cache([@category, @category.playlists.maximum(:updated_at), @category.playlists.count]) do
-  - @category.playlists.order('updated_at DESC').each do |playlist|
-    .media.col-xs-6
-      - vid = VideoInfo.new(playlist.url)
-      = link_to '#', class: 'pull-left' do
-        = image_tag vid.videos.sample.thumbnail_small
-      .media-body
-        %h4.media-heading
-          = vid.title
-          = link_to 'X', admin_playlist_path(playlist.id), method: :delete, class: 'pull-right btn btn-danger'
-        = "Nombre de videos : #{vid.videos.count}"
+.row
+  .col-xs-12.col-md-6
+    = render 'admin/videos/new'
+    %hr
+    - if Video.of_the_week.count.zero?
+      = 'No videos'
+    - Video.of_the_week.each do |video|
+      .media.col-xs-12
+        = link_to '#', class: 'pull-left' do
+          = image_tag video.image_preview_url
+        .media-body
+          %h4.media-heading
+            = video.title
+            = link_to 'X', admin_video_path(video.id), method: :delete, class: 'pull-right btn btn-danger'
+          Created : 
+          = video.created_at.to_formatted_s(:long_ordinal)
+  .col-xs-12.col-md-6
+    = render 'admin/playlists/new'
+    %hr
+    - if @category.playlists.count.zero?
+      = 'No playlist'
+    - @category.playlists.order('updated_at DESC').each do |playlist|
+      .media.col-xs-12
+        = link_to '#', class: 'pull-left' do
+          = image_tag playlist.image_preview_url, size: '120x90'
+        .media-body
+          %h4.media-heading
+            = playlist.title
+            = state_label(playlist.state)
+            = link_to 'X', admin_playlist_path(playlist.id), method: :delete, class: 'pull-right btn btn-danger'
+          = "Videos count : #{playlist.videos.count}"
+          %br
+          Created : 
+          = playlist.created_at.to_formatted_s(:long_ordinal)
+

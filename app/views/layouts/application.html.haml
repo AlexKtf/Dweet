@@ -2,12 +2,22 @@
 %html
   %head
     %title Dweet
+    %base{ href: '/' }
     = stylesheet_link_tag 'application', media: 'all'
     = csrf_meta_tags
-  %body
-    - Category.all.each do |category|
-      = link_to category.name, category_path(category.id)
-    .container
-      = yield
+  %body{ data: { 'ng-app' => 'Dweet'} }
+    %header
+      #lisiere
+      #banner
+        .container#banner-container
+          #logo
+            = link_to 'DWEET', root_path, class: 'navbar-brand'
+          #punchline
+            {{ punchline}}
+    .main-wrapper
+      .container
+        %div{ data: { 'ng-view' => '' } }
+    %footer
+      #footer-footer
 
     = javascript_include_tag 'application'

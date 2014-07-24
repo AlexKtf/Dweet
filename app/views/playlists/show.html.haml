@@ -1,9 +1,10 @@
-= cache([@playlist, @plist.videos.count]) do
+= cache(@playlist) do
+  - plist = VideoInfo.new(@playlist.url)
   .jumbotron
-    %h1= @plist.title
-  = raw @plist.embed_code
+    %h1= plist.title
+  = raw plist.embed_code
   %br
-  - @plist.videos.each do |video|
+  - plist.videos.each do |video|
     = image_tag video.thumbnail_small
     = video.title
     %br

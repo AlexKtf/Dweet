@@ -2,15 +2,24 @@
 %html
   %head
     %title Dweet
-    = stylesheet_link_tag 'admin', media: 'all'
+    = stylesheet_link_tag 'admin/admin', media: 'all'
     = csrf_meta_tags
   %body#admin
-
+    %nav.navbar.navbar-default{:role => "navigation"}
+      .container-fluid
+        .navbar-header
+          = link_to 'Dweet', admin_dashboard_index_path, class: 'navbar-brand'
+        - if current_user and current_user.is_admin
+          #bs-example-navbar-collapse-1.collapse.navbar-collapse
+            %ul.nav.navbar-nav.navbar-left
+              %li{ class: ('active' if current_page?(admin_dashboard_index_path))}
+                = link_to 'Dashboard', admin_dashboard_index_path
+            %ul.nav.navbar-nav.navbar-right
+              %li
+                = link_to 'Deconnexion', destroy_user_session_path, method: :delete
     - flash.each do |k, v|
       %p{ class: "flash-#{k}"}= v
 
-    - if user_signed_in? and current_user.is_admin
-      = link_to 'Dashboard', admin_dashboard_index_path
 
     .container
       = yield

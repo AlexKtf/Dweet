@@ -4,10 +4,9 @@
 = cache([@category, @category.playlists.maximum(:updated_at), @category.playlists.count]) do
   - @category.playlists.order('updated_at DESC').each do |playlist|
     .media.col-xs-6
-      - vid = VideoInfo.new(playlist.url)
       = link_to playlist_path(playlist.id), class: 'pull-left' do
-        = image_tag vid.videos.sample.thumbnail_small
+        = image_tag playlist.image_preview_url.thumbnail_small
       .media-body
         %h4.media-heading
-          = vid.title
+          = playlist.title
         = "Nombre de videos : #{vid.videos.count}"

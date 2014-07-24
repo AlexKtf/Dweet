@@ -1,0 +1,10 @@
+.col-md-12
+  #link-back-video
+    %h2
+      %a{ data: { 'ng-href' => 'categories/{{video.category_id}}' } }
+        %span.glyphicon.glyphicon-chevron-left
+      {{video.title}}
+      %span.item-type.badge.item-type-video
+        Video
+  #block-video
+    %iframe{ data: { 'ng-src' => '{{url}}' } }
