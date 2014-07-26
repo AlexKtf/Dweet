@@ -1,5 +1,4 @@
 class Video < ActiveRecord::Base
-  belongs_to :playlist
   belongs_to :category
 
   include YtItem

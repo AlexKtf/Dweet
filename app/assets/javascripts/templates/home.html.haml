@@ -13,7 +13,10 @@
         %a{ data: { 'ng-href' => "{{item.is_playlist == true ? 'playlists' : 'videos'}}/{{item.id}}" } }
           {{item.title}}
       .media-duration
-        Duration : {{item.duration/60 | number:2}} minutes
+        %span
+          {{item.created_at | date: 'fullDate'}}
+        %span
+          Duration : {{item.duration/60 | number:2}} minutes
       .item-type.label.label-danger.badge-category
         {{item.category.name}}
       .item-type.badge{ data: { 'ng-class' => "item.is_playlist == true ? 'item-type-playlist' : 'item-type-video'" } }
