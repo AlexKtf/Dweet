@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   end
 
   resources :categories, only: [:show, :index]
-  resources :playlists, only: [:show]
   resources :videos, only: [:show]
 
   namespace :admin do

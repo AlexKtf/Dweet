@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140625195311) do
+ActiveRecord::Schema.define(version: 20140726104712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,19 +44,6 @@ ActiveRecord::Schema.define(version: 20140625195311) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
-  create_table "playlists", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "category_id"
-    t.string   "url"
-    t.string   "image_preview_url"
-    t.string   "title"
-    t.string   "embed_code"
-    t.integer  "state"
-  end
-
-  add_index "playlists", ["category_id"], name: "index_playlists_on_category_id", using: :btree
-
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
@@ -77,18 +64,17 @@ ActiveRecord::Schema.define(version: 20140625195311) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "videos", force: true do |t|
-    t.integer  "playlist_id"
     t.string   "url"
-    t.integer  "category_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "style"
     t.string   "title"
     t.string   "image_preview_url"
-    t.string   "embed_code"
+    t.integer  "duration"
+    t.boolean  "is_playlist",       default: false
+    t.string   "first_video_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "category_id"
   end
 
   add_index "videos", ["category_id"], name: "index_videos_on_category_id", using: :btree
-  add_index "videos", ["playlist_id"], name: "index_videos_on_playlist_id", using: :btree
 
 end

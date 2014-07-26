@@ -1,7 +1,7 @@
 class Admin::VideosController < Admin::BaseController
 
   def create
-    @video = Video.new(video_params.merge(style: 0))
+    @video = Video.new(video_params)
     if @video.save
       redirect_to admin_category_path(@video.category_id), notice: 'Success!'
     else
@@ -21,6 +21,6 @@ class Admin::VideosController < Admin::BaseController
   private
 
     def video_params
-      params.require(:video).permit(:url, :style, :category_id)
+      params.require(:video).permit(:url, :is_playlist, :category_id)
     end
 end

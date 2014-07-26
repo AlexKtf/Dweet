@@ -1,18 +1,20 @@
-.col-md-12.main-category-block{ data: { 'ng-repeat' => 'category in categories' } }
-  .col-md-4.category-title-block
+.col-md-4
+  .col-md-12.main-category-block.category-title-block{ data: { 'ng-repeat' => 'category in categories' } }
     %h3.category-title
       {{ category.name }}
     %a.media-object-explore.btn.btn-primary{ data: { 'ng-href' => 'categories/{{category.id}}'} }
       Explore
-  .col-md-8
-    .media
-      %a.pull-left.media-object-link{ data: { 'ng-href' => 'playlist/{{category.playlists[0].id}}' } }
-        %img.media-object.media-object-image{ data: { 'ng-src' => '{{category.playlists[0].image_preview_url}}' } }
-        .media-object-description
-          {{category.playlists[0].title}}
-      .media-body
-        %a.pull-left.media-object-link{ data: { 'ng-href' => 'video/{{category.videos[0].id}}' } }
-          %img.media-body-image{ data: { 'ng-src' => '{{category.videos[0].image_preview_url}}'} }
-        %a.pull-left.media-object-link{ data: { 'ng-href' => 'video/{{category.videos[1].id}}' } }
-          %img.media-body-image{ data: { 'ng-src' => '{{category.videos[1].image_preview_url}}'} }
-  %hr
+.col-md-8
+  .media.media-block{ data: { 'ng-repeat' => 'item in items' } }
+    %a.pull-left{ data: { 'ng-href' => "{{item.is_playlist == true ? 'playlists' : 'videos'}}/{{item.id}}" } }
+      %img.media-object.media-object-image{ data: { 'ng-src' => '{{item.image_preview_url}}' } }
+    .media-body
+      %h4.media-heading.media-object-title
+        %a{ data: { 'ng-href' => "{{item.is_playlist == true ? 'playlists' : 'videos'}}/{{item.id}}" } }
+          {{item.title}}
+      .media-duration
+        Duration : {{item.duration/60 | number:2}} minutes
+      .item-type.label.label-danger.badge-category
+        {{item.category.name}}
+      .item-type.badge{ data: { 'ng-class' => "item.is_playlist == true ? 'item-type-playlist' : 'item-type-video'" } }
+        {{item.is_playlist == true ? 'Playlist' : 'Video'}}

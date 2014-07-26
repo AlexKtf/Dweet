@@ -1,10 +1,11 @@
 class CategoriesController < ApplicationController
 
   def index
-    categories = Category.includes(:videos, :playlists).order('categories.created_at DESC')
+    categories = Category.order('categories.created_at DESC')
+    items = Video.all.order('created_at DESC')
 
     respond_to do |format|
-      format.json { render json: categories, include: [:videos, :playlists] }
+      format.json { render json: [categories, items] }
     end
   end
 
@@ -13,9 +14,7 @@ class CategoriesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json do
-        render json: @category.ordered_items
-      end
+      format.json { render json: @category.ordered_items }
     end
   end
 end

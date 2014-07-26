@@ -1,10 +1,10 @@
 .col-md-12
   #link-back-video
     %h2
-      %a{ data: { 'ng-href' => 'categories/{{video.category_id}}' } }
+      %a{ data: { 'ng-href' => '{{previousUrl()}}' } }
         %span.glyphicon.glyphicon-chevron-left
       {{video.title}}
-      %span.item-type.badge.item-type-video
-        Video
+      %span.item-type.badge{ data: { 'ng-class' => "video.is_playlist == true ? 'item-type-playlist' : 'item-type-video'" } }
+        {{video.is_playlist == true ? 'Playlist' : 'Video'}}
   #block-video
     %iframe{ data: { 'ng-src' => '{{url}}' } }

@@ -11,7 +11,8 @@ class Admin::CategoriesController < Admin::BaseController
 
   def show
     @category = Category.find(params[:id])
-    @playlist = Playlist.new
+    @playlists = @category.videos.playlists
+    @videos = @category.videos.videos
   end
 
   def destroy

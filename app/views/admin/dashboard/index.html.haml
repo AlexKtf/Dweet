@@ -7,9 +7,9 @@
         %li.list-group-item
           = link_to category.name, admin_category_path(category.id)
           %span.badge
-            = "Playlists : #{category.playlists.count}"
+            = "Playlists : #{category.videos.playlists.count}"
           %span.badge
-            = "Videos : #{category.videos.count}"
+            = "Videos : #{category.videos.videos.count}"
   .col-xs-6
     = render 'admin/artists/new'
     %hr

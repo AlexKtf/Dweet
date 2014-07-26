@@ -15,8 +15,8 @@ Dweet.config ['$routeProvider', '$locationProvider', ($routeProvider, $locationP
       controller: 'VideoCtrl'
 
     .when '/playlists/:id',
-      templateUrl: 'playlist.html',
-      controller: 'PlaylistCtrl'
+      templateUrl: 'video.html',
+      controller: 'VideoCtrl'
 
     .otherwise
       redirectTo: '/'

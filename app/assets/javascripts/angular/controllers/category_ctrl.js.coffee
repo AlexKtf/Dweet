@@ -1,24 +1,18 @@
-Dweet.controller 'CategoryCtrl', ['$scope', '$http', '$routeParams', 'filterFilter', ($scope, $http, $routeParams, filterFilter) ->
+Dweet.controller 'CategoryCtrl', ['$scope', '$http', '$routeParams', '$rootScope', 'filterFilter', ($scope, $http, $routeParams, $rootScope, filterFilter) ->
   $http.get('/categories/'+$routeParams['id']+'.json')
   .success (data, status) ->
     $scope.items = data
     $scope.allItems = data
     $scope.selectedFilter = 'all'
+    $rootScope.punchline = $scope.items[0].category.name
   .error (data, status) ->
     alert 'Error'
 
   $scope.itemTypeFilter = (type) ->
     $scope.selectedFilter = type
-
-    if type != 'videos' && type != 'playlists'
+    if type == 'all'
       $scope.items = $scope.allItems
       return
 
-    $scope.items = []
-    angular.forEach $scope.allItems, (v, k) ->
-      if angular.isUndefined(v.playlist_id) && type == 'playlists'
-        $scope.items.push(v)
-      if v.playlist_id == null && type == 'videos'
-        $scope.items.push(v)
-
+    $scope.items = filterFilter($scope.allItems, { is_playlist: type })
 ]

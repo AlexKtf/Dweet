@@ -2,19 +2,17 @@ class Video < ActiveRecord::Base
   belongs_to :playlist
   belongs_to :category
 
-  enum style: [:of_the_week, :playlist]
+  include YtItem
+
+  scope :videos, ->() { where(is_playlist: false) }
+  scope :playlists, ->() { where(is_playlist: true) }
 
   validates :url, presence: true
 
-  before_create :url_is_valid?
+  before_create :check_and_prepare
 
-  def url_is_valid?
-    begin
-      video = Yt::Video.new id: self.url
-      self.title = video.title
-      self.image_preview_url = video.thumbnail_url
-    rescue Yt::Errors::NoItems
-      false
-    end
+  def as_json(options = {})
+    super(include: [:category])
   end
+
 end

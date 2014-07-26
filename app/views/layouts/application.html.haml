@@ -1,7 +1,7 @@
 !!!5
 %html
   %head
-    %title Dweet
+    %title Make We Dweet TV - Bass Music Pon de Internet
     %base{ href: '/' }
     = stylesheet_link_tag 'application', media: 'all'
     = csrf_meta_tags
@@ -9,11 +9,9 @@
     %header
       #lisiere
       #banner
-        .container#banner-container
-          #logo
-            = link_to 'DWEET', root_path, class: 'navbar-brand'
+        .container
           #punchline
-            {{ punchline}}
+            {{punchline}}
     .main-wrapper
       .container
         %div{ data: { 'ng-view' => '' } }
