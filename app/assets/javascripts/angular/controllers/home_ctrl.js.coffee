@@ -11,6 +11,12 @@ Dweet.controller 'HomeCtrl', ['$scope', '$http', '$rootScope', ($scope, $http, $
   $rootScope.previousUrl = () ->
     return $rootScope.oldUrl
 
+  $rootScope.itemType = (item) ->
+    if item.is_playlist
+      return 'playlists'
+    else
+      return 'videos'
+  
   $rootScope.$on '$locationChangeStart', (evt, absNewUrl, absOldUrl) ->
     $rootScope.oldUrl = absOldUrl
 ]

@@ -1,23 +1,26 @@
-.col-md-4
-  .col-md-12.main-category-block.category-title-block{ data: { 'ng-repeat' => 'category in categories' } }
-    %h3.category-title
-      {{ category.name }}
-    %a.media-object-explore.btn.btn-primary{ data: { 'ng-href' => 'categories/{{category.id}}'} }
-      Explore
-.col-md-8
-  .media.media-block{ data: { 'ng-repeat' => 'item in items' } }
-    %a.pull-left{ data: { 'ng-href' => "{{item.is_playlist == true ? 'playlists' : 'videos'}}/{{item.id}}" } }
-      %img.media-object.media-object-image{ data: { 'ng-src' => '{{item.image_preview_url}}' } }
-    .media-body
-      %h4.media-heading.media-object-title
-        %a{ data: { 'ng-href' => "{{item.is_playlist == true ? 'playlists' : 'videos'}}/{{item.id}}" } }
-          {{item.title}}
-      .media-duration
-        %span
-          {{item.created_at | date: 'fullDate'}}
-        %span
-          Duration : {{item.duration/60 | number:2}} minutes
-      .item-type.label.label-danger.badge-category
-        {{item.category.name}}
-      .item-type.badge{ data: { 'ng-class' => "item.is_playlist == true ? 'item-type-playlist' : 'item-type-video'" } }
-        {{item.is_playlist == true ? 'Playlist' : 'Video'}}
+.col-md-12
+  .col-md-4
+    .col-md-12.main-category-block.category-title-block{ data: { 'ng-repeat' => 'category in categories' } }
+      %h3.category-title
+        {{ category.name }}
+      %a.media-object-explore.btn.btn-primary{ data: { 'ng-href' => 'categories/{{category.id}}'} }
+        Explore
+  .col-md-8
+    .media.media-block{ data: { 'ng-repeat' => 'item in items' } }
+      .col-md-4.col-xs-12
+        %a.pull-left{ data: { 'ng-href' => "{{itemType(item)}}/{{item.id}}" } }
+          %img.media-object.media-object-image{ data: { 'ng-src' => '{{item.image_preview_url}}' } }
+      .col-md-8.col-xs-12
+        .media-body
+          %h4.media-heading.media-object-title
+            %a{ data: { 'ng-href' => "{{itemType(item)}}/{{item.id}}" } }
+              {{item.title}}
+          .item-type.label.label-danger.badge-category
+            {{item.category.name}}
+          .item-type.badge{ data: { 'ng-class' => "item.is_playlist == true ? 'item-type-playlist' : 'item-type-video'" } }
+            {{item.is_playlist == true ? 'Playlist' : 'Video'}}
+          .media-duration
+            %span
+              {{item.created_at | date: 'fullDate'}}
+            %span
+              Duration : {{item.duration/60 | number:2}} minutes
