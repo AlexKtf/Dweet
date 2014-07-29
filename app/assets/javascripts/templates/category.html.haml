@@ -33,10 +33,10 @@
       .col-md-7
         .media-body
           %a.media-category-link{ data: { 'ng-href' => "{{itemType(item)}}/{{item.id}}" } }
-            %h4.media-category-heading
-              {{item.title}}
-          .item-type.badge{ data: { 'ng-class' => "item.is_playlist == true ? 'item-type-playlist' : 'item-type-video'" } }
-            {{item.is_playlist == true ? 'Playlist' : 'Video'}}
+            .media-category-heading
+              {{item.title | limitTo:45}}
+              %span.item-type.badge{ data: { 'ng-class' => "item.is_playlist == true ? 'item-type-playlist' : 'item-type-video'" } }
+                {{item.is_playlist == true ? 'Playlist' : 'Video'}}
           .media-category-stat
             %span
               {{item.created_at | date: 'fullDate'}}
