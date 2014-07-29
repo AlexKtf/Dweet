@@ -17,11 +17,12 @@
             %ul.nav.navbar-nav.navbar-right
               %li
                 = link_to 'Deconnexion', destroy_user_session_path, method: :delete
-    - flash.each do |k, v|
-      %p{ class: "flash-#{k}"}= v
 
 
     .container
+      - flash.each do |k, v|
+        - cl = k == 'notice' ? 'alert-success' : 'alert-danger'
+        %p{ class: "alert #{cl} "}= v
       = yield
 
     = javascript_include_tag 'application'

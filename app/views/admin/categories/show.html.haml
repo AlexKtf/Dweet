@@ -9,11 +9,12 @@
     - @videos.each do |video|
       .media.col-xs-12
         = link_to '#', class: 'pull-left' do
-          = image_tag video.image_preview_url
+          = image_tag video.image_preview_url, width: '120'
         .media-body
           %h4.media-heading
             = video.title
-            = link_to 'X', admin_video_path(video.id), method: :delete, class: 'pull-right btn btn-danger'
+            = link_to admin_video_path(video.id), method: :delete do
+              %span.glyphicon.glyphicon-remove{ style: 'color: hsl(2, 65%, 50%)' }
           Created : 
           = video.created_at.to_formatted_s(:long_ordinal)
   .col-xs-12.col-md-6
@@ -24,13 +25,14 @@
     - @playlists.order('updated_at DESC').each do |playlist|
       .media.col-xs-12
         = link_to '#', class: 'pull-left' do
-          = image_tag playlist.image_preview_url, size: '120x90'
+          = image_tag playlist.image_preview_url, width: '120'
         .media-body
           %h4.media-heading
             = playlist.title
-            = link_to 'X', admin_playlist_path(playlist.id), method: :delete, class: 'pull-right btn btn-danger'
+            = link_to admin_video_path(playlist.id), method: :delete do
+              %span.glyphicon.glyphicon-remove{ style: 'color: hsl(2, 65%, 50%)' }
           / TODO: Playlist video count
-          / # = "Videos count : #{playlist..count}"
+          / # = "Videos count : #{playlist..count}"TOto
           %br
           Created : 
           = playlist.created_at.to_formatted_s(:long_ordinal)
