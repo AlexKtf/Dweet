@@ -6,6 +6,8 @@
       - Category.all.each do |category|
         %li.list-group-item
           = link_to category.name, admin_category_path(category.id)
+          = link_to admin_category_path(category.id), method: :delete, class: 'pull-right' do
+            %span.glyphicon.glyphicon-remove{ style: 'margin-left: 15px; color: hsl(2, 65%, 50%)' }
           %span.badge
             = "Playlists : #{category.videos.playlists.count}"
           %span.badge
