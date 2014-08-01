@@ -8,4 +8,6 @@
 //= require_tree ./templates
 //= require angular/dweet
 //= require_tree ./angular/controllers
-//= require_tree .
+//= require_tree ./angular/directives
+//= require slick.min
+//= require common

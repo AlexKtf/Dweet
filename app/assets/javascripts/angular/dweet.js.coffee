@@ -10,13 +10,9 @@ Dweet.config ['$routeProvider', '$locationProvider', ($routeProvider, $locationP
       templateUrl: 'category.html',
       controller: 'CategoryCtrl'
 
-    .when '/videos/:id',
-      templateUrl: 'video.html',
-      controller: 'VideoCtrl'
-
-    .when '/playlists/:id',
-      templateUrl: 'video.html',
-      controller: 'VideoCtrl'
+    .when '/categories/:id/:videoId',
+      templateUrl: 'category.html',
+      controller: 'CategoryCtrl'
 
     .otherwise
       redirectTo: '/'

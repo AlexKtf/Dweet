@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     post '/admin', to: 'admin/sessions#create'
   end
 
+  get'categories-items', to: 'categories#categories_items'
   resources :categories, only: [:show, :index]
   resources :videos, only: [:show]
 

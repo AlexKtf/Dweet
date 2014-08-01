@@ -6,16 +6,14 @@
     = stylesheet_link_tag 'application', media: 'all'
     = csrf_meta_tags
   %body{ data: { 'ng-app' => 'Dweet'} }
-    %header
-      #lisiere
-      #banner
-        .container
-          #punchline
-            {{punchline}}
-    .main-wrapper
-      .container
-        #view{ data: { 'ng-view' => '' } }
-    %footer
-      #footer-footer
+    #main-menu.col-md-2{ data: { 'ng-controller' => 'MainMenuCtrl' } }
+      #logo
+        %a{ data: { 'ng-href' => '/' } }
+          Make We Dweet Tv
+      %ul
+        %li{ data: { 'ng-repeat' => 'category in categories' } }
+          %a{ data: { 'ng-href' => 'categories/{{category.id}}' } }
+            {{category.name}}
+    #view{ data: { 'ng-view' => '' } }
 
     = javascript_include_tag 'application'
