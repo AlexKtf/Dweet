@@ -1,6 +1,6 @@
 #artist-new
-  %h2 Ajouter un artiste
+  %h2 Add an artist
   = simple_form_for @artist, url: admin_artists_path do |f|
     = f.input :name, required: false
     .form-actions
-      = f.button :submit, 'Ajouter'
+      = f.button :submit, 'Add'
