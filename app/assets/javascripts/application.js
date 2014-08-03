@@ -10,4 +10,5 @@
 //= require_tree ./angular/controllers
 //= require_tree ./angular/directives
 //= require slick.min
+//= require youtube_embed
 //= require common

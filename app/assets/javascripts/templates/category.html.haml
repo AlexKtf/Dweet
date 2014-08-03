@@ -1,9 +1,7 @@
-#category-submenu.col-md-3.check-element.animate-show
+#category-submenu.col-md-3.animate-opacity
   #category-submenu-title
     {{categoryName}}
   #category-submenu-random
-    %span.btn.btn-default{ data: { 'ng-click' => 'setRandomSelectedVideo()' } }
-      Random
     .btn-group
       %button.btn.btn-default{ type: 'button', data: { 'ng-click' => "itemTypeFilter('false')", 'ng-class' => "{ active: selectedFilter == 'false' }" } }
         Videos
@@ -16,17 +14,37 @@
     %input.form-control{ data: { 'ng-model' => 'searchVideo.title' } }
   #category-submenu-items
     %ul
-      %li{ data: { 'ng-repeat' => 'item in items | filter: searchVideo' } }
+      %li{ class: 'animate-opacity', data: { 'ng-repeat' => 'item in items | filter: searchVideo' } }
         %span.play-icon.glyphicon.glyphicon-play-circle{ data: { 'ng-show' => 'selectedVideo.id == item.id' } }
         %a{ data: { 'ng-class' => '{active: selectedVideo.id == item.id}', 'ng-click' => 'setSelectedVideo(item)' } }
           {{item.title}}
         %span.label.label-warning
           {{item.is_playlist ? 'Playlist' : 'Video'}}
 #category-video-block.col-md-7
-  %div{ data: { 'ng-hide' => 'selectedVideo' } }
-    home
-  #selected-video-block{ data: { 'ng-show' => 'selectedVideo' } }
+  #home-category-block
+    #radio-clip-button
+      %span.pull-right.btn.btn-default{ data: { 'ng-click' => 'setRandomSelectedVideo()' } }
+        Random
+      %button.btn.btn-default{ data: { 'ng-class' => '{active: radioClip}', 'ng-click' => 'setRadioClip()' } }
+        %span.play-icon.glyphicon.glyphicon-play-circle
+        Launch Video Flow
+      %span.radio-counter{ data: { 'ng-if' => 'radioClip' } }
+        {{displayRadioIndex()}} / {{radioTotalCount}}
+  #selected-video-block{ data: { 'ng-if' => 'radioClip' } }
+    #selected-video-title
+      {{clip.title}}
+    #selected-video-iframe
+      #radio-iframe{ data: { 'youtube-video' => '', 'video-id' => 'clip.url' } }
+    #radio-between
+      %a.animate-opacity{ data: { 'ng-click' => 'prevRadioClip()', 'ng-show' => 'prevClip' } }
+        %span.glyphicon.glyphicon-chevron-left
+        {{prevClip.title}}
+      %a.animate-opacity.pull-right{ data: {'ng-click' => 'nextRadioClip()', 'ng-show' => 'nextClip' } }
+        {{nextClip.title}}
+        %span.glyphicon.glyphicon-chevron-right
+
+  #selected-video-block{ data: { 'ng-if' => 'selectedVideo && !radioClip' } }
     #selected-video-title
       {{selectedVideo.title}}
     #selected-video-iframe
-      %iframe{ data: { 'ng-src' => '{{url}}' } }
+      %iframe{ allowfullscreen: '1', frameborder: '0', data: { 'ng-src' => '{{fullUrl}}'} }
