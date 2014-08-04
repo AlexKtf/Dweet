@@ -6,7 +6,6 @@ Dweet.controller 'CategoryCtrl',
   .success (data, status) ->
     $scope.items = data[0]
     $scope.allItems = data[0]
-    $scope.radioItems = filterFilter($scope.allItems, { is_playlist: false })
     $scope.categoryName = data[1]
     if $routeParams['videoId']?
       $scope.setSelectedVideo($filter('filter')($scope.items, {id: $routeParams['videoId']})[0])
@@ -18,19 +17,36 @@ Dweet.controller 'CategoryCtrl',
   $scope.selectedFilter = 'all'
   $scope.radioClip = false
 
-  $scope.setRadioClip = () ->
-    return if $scope.radioClip
+
+  $scope.initRadioClip = () ->
     $scope.radioClip = true
     $scope.selectedVideo = null
     $scope.radioCurrentIndex = 0
-    $scope.radioTotalCount = $scope.radioItems.length
+    $scope.prevClip = null
+    $scope.nextClip = null
+
+
+  $scope.setRadioClip = () ->
+    return if $scope.radioClip
+
+    $scope.initRadioClip()
+    $scope.radioItems = filterFilter($scope.allItems, { is_playlist: false })
     $scope.clip = $scope.radioItems[0]
     $scope.nextClip = $scope.radioItems[1]
 
   $scope.nextRadioClip = () ->
     $scope.radioCurrentIndex = $scope.radioCurrentIndex + 1
-    $scope.clip = $scope.radioItems[$scope.radioCurrentIndex]
     $scope.setPrevAndNextRadioClip()
+    $scope.clip = $scope.radioItems[$scope.radioCurrentIndex]
+
+    if !$scope.nextClip?
+      $scope.letRepeatRadio = true
+      return
+
+  $scope.repeatRadioClip = () ->
+    $scope.radioClip = false
+    $scope.letRepeatRadio = false
+    $scope.setRadioClip()
 
   $scope.prevRadioClip = () ->
     $scope.radioCurrentIndex = $scope.radioCurrentIndex - 1
