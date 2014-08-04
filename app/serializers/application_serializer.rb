@@ -1,6 +1,7 @@
 # Uses russian doll technique
 class ApplicationSerializer < ActiveModel::Serializer
   delegate :cache_key, to: :object
+  
 
   # Cache entire JSON string
   def to_json(*args)

@@ -16,7 +16,7 @@
     #category-submenu-items
       %ul
         %li{ class: 'animate-opacity', data: { 'ng-repeat' => 'item in items | filter: searchVideo' } }
-          %span.play-icon.glyphicon.glyphicon-play-circle{ data: { 'ng-show' => 'selectedVideo.id == item.id' } }
+          %span.play-icon.glyphicon.glyphicon-play-circle{ data: { 'ng-show' => 'selectedVideo.id == item.id || clip.id == item.id' } }
           %a{ data: { 'ng-class' => '{active: selectedVideo.id == item.id}', 'ng-click' => 'setSelectedVideo(item)' } }
             {{item.title}}
           %span.label.label-warning

@@ -1,5 +1,5 @@
 class Video < ActiveRecord::Base
-  belongs_to :category
+  belongs_to :category, touch: true
 
   scope :videos, ->() { where(is_playlist: false) }
   scope :playlists, ->() { where(is_playlist: true) }
@@ -7,15 +7,6 @@ class Video < ActiveRecord::Base
   validates :url, presence: true
 
   before_create :check_and_prepare
-  after_create :touch_category
-
-  def touch_category
-    category.touch
-  end
-
-  def as_json(options = {})
-    super(include: [:category])
-  end
 
   def check_and_prepare
     begin

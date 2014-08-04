@@ -6,6 +6,7 @@ gem 'pg'
 gem 'unicorn'
 gem 'delayed_job_active_record'
 gem 'rails_12factor', group: :production
+gem 'active_model_serializers'
 
 gem 'yt'
 

@@ -9,9 +9,9 @@ Dweet.controller 'CategoryCtrl',
 
   $http.get('/categories/'+$routeParams['id']+'.json')
   .success (data, status) ->
-    $scope.items = data[0]
-    $scope.allItems = data[0]
-    $scope.categoryName = data[1]
+    $scope.categoryName = data[0].category_name
+    $scope.items = data
+    $scope.allItems = data
     if $routeParams['videoId']?
       $scope.setSelectedVideo($filter('filter')($scope.items, {id: $routeParams['videoId']})[0])
     else
@@ -79,9 +79,7 @@ Dweet.controller 'CategoryCtrl',
   $scope.setSelectedVideo = (video) ->
     $scope.radioClip = false
     $scope.selectedVideo = video
-    $scope.fullUrl = video.url
-    $scope.fullUrl = video.first_video_url + '?list=' + $scope.fullUrl if video.is_playlist
-    $scope.fullUrl = $sce.trustAsResourceUrl('//youtube.com/embed/' + $scope.fullUrl)
+    $scope.fullUrl = $sce.trustAsResourceUrl(video.yt_url)
 
 
   $scope.itemTypeFilter = (type) ->

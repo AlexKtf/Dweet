@@ -4,14 +4,14 @@
       {{key}}
     .category-inblock
       .slick-carousel{ data: { 'slick-carousel' => '' } }
-        .slick-inblock{ data: { 'ng-repeat' => 'video in category[0]' }}
+        .slick-inblock{ data: { 'ng-repeat' => 'video in category.items' }}
           %a{ data: { 'ng-href' => 'categories/{{video.category_id}}/{{video.id}}' } }
             %img{ style: 'width: 200px; height: 150px', data: { 'ng-src' => '{{video.image_preview_url}}' } }
             .category-video-title
               {{video.title}}
     .category-explore
       .category-explore-link
-        %a{ data: { 'ng-href' => '/categories/{{category[0][0].category_id}}' } }
+        %a{ data: { 'ng-href' => '/categories/{{category.items[0].category_id}}' } }
           Explore {{key}} Music!
       .category-videos-count
-        {{category[1]}} Playlists & Videos
+        {{category.videos_count}} Playlists & Videos

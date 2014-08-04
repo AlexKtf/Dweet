@@ -4,7 +4,7 @@ class Category < ActiveRecord::Base
 
   validates :name, presence: true
 
-  def ordered_items
-    videos.order('created_at DESC')
+  def top_videos
+    videos.order('videos.created_at DESC').limit(9)
   end
 end
