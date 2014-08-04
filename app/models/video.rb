@@ -7,6 +7,11 @@ class Video < ActiveRecord::Base
   validates :url, presence: true
 
   before_create :check_and_prepare
+  after_create :touch_category
+
+  def touch_category
+    category.touch
+  end
 
   def as_json(options = {})
     super(include: [:category])
