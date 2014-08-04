@@ -1,44 +1,53 @@
-#category-show
-  #search-category.col-md-12
-    .col-md-1.col-xs-2#back-link
-      %a{ data: { 'ng-href' => '/' } }
-        %span.glyphicon.glyphicon-chevron-left
-    .col-md-8.col-xs-10
-      %input.form-control{ placeholder: 'Search Playlist, Video...', data: { 'ng-model' => 'searchText.title' } }
-    .col-md-3.col-xs-12
-      .btn-group
-        %button.btn.btn-default{ type: 'button', data: { 'ng-click' => "itemTypeFilter('false')", 'ng-class' => "{ active: selectedFilter == 'false' }" } }
-          Videos
-        %button.btn.btn-default{ type: 'button', data: { 'ng-click' => "itemTypeFilter('all')", 'ng-class' => "{ active: selectedFilter == 'all' }" } }
-          All
-        %button.btn.btn-default{ type: 'button', data: { 'ng-click' => "itemTypeFilter('true')", 'ng-class' => "{ active: selectedFilter == 'true' }" } }
-          Playlists
-
-  #random-video.col-md-12
-    #block-button-random.col-md-12.col-xs-12
-      %button.btn.btn-default{ type: 'button', data: { 'ng-click' => "getRandomItem()" } }
+#category-submenu.col-md-3.animate-opacity
+  #category-submenu-title
+    {{categoryName}}
+  #category-submenu-random
+    .btn-group
+      %button.btn.btn-default{ type: 'button', data: { 'ng-click' => "itemTypeFilter('false')", 'ng-class' => "{ active: selectedFilter == 'false' }" } }
+        Videos
+      %button.btn.btn-default{ type: 'button', data: { 'ng-click' => "itemTypeFilter('all')", 'ng-class' => "{ active: selectedFilter == 'all' }" } }
+        All
+      %button.btn.btn-default{ type: 'button', data: { 'ng-click' => "itemTypeFilter('true')", 'ng-class' => "{ active: selectedFilter == 'true' }" } }
+        Playlists
+  #category-submenu-filter
+    %span.glyphicon.glyphicon-search
+    %input.form-control{ data: { 'ng-model' => 'searchVideo.title' } }
+  #category-submenu-items
+    %ul
+      %li{ class: 'animate-opacity', data: { 'ng-repeat' => 'item in items | filter: searchVideo' } }
+        %span.play-icon.glyphicon.glyphicon-play-circle{ data: { 'ng-show' => 'selectedVideo.id == item.id' } }
+        %a{ data: { 'ng-class' => '{active: selectedVideo.id == item.id}', 'ng-click' => 'setSelectedVideo(item)' } }
+          {{item.title}}
+        %span.label.label-warning
+          {{item.is_playlist ? 'Playlist' : 'Video'}}
+#category-video-block.col-md-7
+  #home-category-block
+    #radio-clip-button
+      %span.pull-right.btn.btn-default{ data: { 'ng-click' => 'setRandomSelectedVideo()' } }
         Random
-      %a#close-random{ data: { 'ng-click' => 'randomItem = null', 'ng-show' => 'randomItem' } }
-        %span.glyphicon.glyphicon-remove
-    #random-block.col-md-12.col-xs-12.fadein.fadeout{ data: { 'ng-show' => 'randomItem' } }
-      %iframe{ data: { 'ng-src' => '{{url}}' } }
-      .random-video-title
-        {{randomItem.title}}
+      %button.btn.btn-default{ data: { 'ng-class' => '{active: radioClip}', 'ng-click' => 'setRadioClip()' } }
+        %span.play-icon.glyphicon.glyphicon-play-circle
+        Launch Video Flow
+      %span.radio-counter{ data: { 'ng-if' => 'radioClip' } }
+        {{displayRadioIndex()}} / {{radioItems.length}}
+  #selected-video-block{ data: { 'ng-if' => 'radioClip' } }
+    #selected-video-title
+      {{clip.title}}
+    #selected-video-iframe
+      #radio-iframe{ data: { 'youtube-video' => '', 'video-id' => 'clip.url' } }
+    #radio-between
+      %a.animate-opacity{ data: { 'ng-click' => 'prevRadioClip()', 'ng-show' => 'prevClip' } }
+        %span.glyphicon.glyphicon-chevron-left
+        {{prevClip.title}}
+      %a.animate-opacity.pull-right{ data: {'ng-click' => 'nextRadioClip()', 'ng-show' => 'nextClip && !letRepeatRadio' } }
+        {{nextClip.title}}
+        %span.glyphicon.glyphicon-chevron-right
+      %a.animate-opacity.pull-right{ data: {'ng-click' => 'repeatRadioClip()', 'ng-show' => 'letRepeatRadio' } }
+        Repeat Video Flow
+        %span.glyphicon.glyphicon-repeat
 
-  #list-video.col-md-12
-    .media.media-category.col-md-6.col-xs-12{ type: 'text', data: { 'ng-repeat' => 'item in items | filter:searchText' } }
-      .col-md-5
-        %a.media-category-link{ data: { 'ng-href' => "{{itemType(item)}}/{{item.id}}" } }
-          %img.media-object.media-category-image{ data: { 'ng-src' => '{{item.image_preview_url}}' } }
-      .col-md-7
-        .media-body
-          %a.media-category-link{ data: { 'ng-href' => "{{itemType(item)}}/{{item.id}}" } }
-            .media-category-heading
-              {{item.title | limitTo:45}}
-              %span.item-type.badge{ data: { 'ng-class' => "item.is_playlist == true ? 'item-type-playlist' : 'item-type-video'" } }
-                {{item.is_playlist == true ? 'Playlist' : 'Video'}}
-          .media-category-stat
-            %span
-              {{item.created_at | date: 'fullDate'}}
-            %span
-              {{item.duration/60 | number:2}} minutes
+  #selected-video-block{ data: { 'ng-if' => 'selectedVideo && !radioClip' } }
+    #selected-video-title
+      {{selectedVideo.title}}
+    #selected-video-iframe
+      %iframe{ allowfullscreen: '1', frameborder: '0', data: { 'ng-src' => '{{fullUrl}}'} }
