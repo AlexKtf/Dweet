@@ -2,6 +2,11 @@ Dweet.controller 'CategoryCtrl',
 ['$scope', '$http', '$routeParams', '$rootScope', '$sce', '$filter', '$youtube', '$timeout', 'filterFilter',
 ($scope, $http, $routeParams, $rootScope, $sce, $filter, $youtube, $timeout, filterFilter) ->
   
+
+  $scope.selectedFilter = 'all'
+  $scope.radioClip = false
+  $scope.loading = true
+
   $http.get('/categories/'+$routeParams['id']+'.json')
   .success (data, status) ->
     $scope.items = data[0]
@@ -11,11 +16,10 @@ Dweet.controller 'CategoryCtrl',
       $scope.setSelectedVideo($filter('filter')($scope.items, {id: $routeParams['videoId']})[0])
     else
       $scope.setSelectedVideo($scope.items[0])
+    $scope.loading = false
+
   .error (data, status) ->
     alert 'Error'
-
-  $scope.selectedFilter = 'all'
-  $scope.radioClip = false
 
 
   $scope.initRadioClip = () ->
@@ -24,7 +28,6 @@ Dweet.controller 'CategoryCtrl',
     $scope.radioCurrentIndex = 0
     $scope.prevClip = null
     $scope.nextClip = null
-
 
   $scope.setRadioClip = () ->
     return if $scope.radioClip

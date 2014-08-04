@@ -8,8 +8,9 @@ Rails.application.routes.draw do
   end
 
   get'categories-items', to: 'categories#categories_items'
-  resources :categories, only: [:show, :index]
-  resources :videos, only: [:show]
+  resources :categories, only: [:show, :index] do
+    get '/:id', to: 'videos#show'
+  end
 
   namespace :admin do
     resources :dashboard, only: :index

@@ -24,7 +24,7 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:id])
 
     respond_to do |format|
-      format.html
+      format.html { redirect_to root_path + "/#/categories/#{@category.id}" }
       format.json { render json: [@category.ordered_items, @category.name] }
     end
   end

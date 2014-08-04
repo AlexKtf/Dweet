@@ -4,4 +4,5 @@ Dweet.controller 'HomeCtrl', ['$scope', '$http', '$rootScope', ($scope, $http, $
       $scope.categoriesItems = data
     .error (data, status) ->
       alert 'Error'
+
 ]
