@@ -79,6 +79,7 @@ Dweet.controller 'CategoryCtrl',
     $scope.setSelectedVideo($scope.items[randomNumber])
 
   $scope.setSelectedVideo = (video) ->
+    $scope.clip = false
     $scope.radioClip = false
     $scope.selectedVideo = video
     $scope.fullUrl = $sce.trustAsResourceUrl(video.yt_url)

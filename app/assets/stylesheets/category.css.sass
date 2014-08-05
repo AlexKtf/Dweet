@@ -1,5 +1,6 @@
 #home-view
   min-height: 100%
+  padding-top: 35px
 .category-block
   padding: 15px
 .category-inblock
@@ -36,16 +37,37 @@
 
 #category-submenu
   height: 100%
-  background: #D2D7D3
+  padding: 50px 20px
+#submenu
+  padding: 15px
+  background-color: hsl(0, 100%, 100%)
+  border: 1px solid hsl(0, 0%, 85%)
+  height: 100%
+#submenu-block
+  height: 100%
 #category-submenu-title
   text-align: center
-  margin-top: 60px
-  margin-bottom: 30px
+  margin: 30px 0
   font-size: 42px
 #category-submenu-random
   text-align: center
   margin-bottom: 30px
+#category-submenu-entertain
+  display: table
+  width: 100%
+  margin-top: 10px
+  .cell-entertain
+    text-align: left
+    display: table-cell
+    width: 50%
+  .cell-entertain:first-child
+    text-align: center
+  .glyphicon
+    top: 2px
+    margin-right: 8px
 #category-submenu-items
+  height: 65%
+  overflow-y: scroll
   ul
     padding: 0
     .glyphicon
@@ -65,10 +87,6 @@
           text-decoration: none
         &.active
           color: black
-      .label-warning
-        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important
-        font-size: 10px !important
-        vertical-align: middle !important
 #category-submenu-filter
   text-align: center
   margin-bottom: 25px
@@ -80,18 +98,9 @@
     width: 80%
     display: inline-block
 
-#radio-clip-button
-  margin-top: 50px
-  padding: 15px 50px
-  background-color: hsl(0, 100%, 100%)
-  border: 1px solid hsl(0, 0%, 85%)
-  .play-icon
-    top: 2px
-    margin-right: 8px
-
 .animate-opacity.ng-enter,
 .animate-opacity.ng-leave
-  transition: 300ms ease-in all
+  transition: 400ms ease-in all
   position: relative
   display: block
 .animate-opacity.ng-enter.ng-enter-active,
