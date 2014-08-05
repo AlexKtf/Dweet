@@ -8,6 +8,10 @@ class Video < ActiveRecord::Base
 
   before_create :check_and_prepare
 
+  def slug
+    "#{id}-#{title.parameterize}"
+  end
+
   def check_and_prepare
     begin
       item = is_playlist ? Yt::Playlist.new(id: url) : Yt::Video.new(id: url)

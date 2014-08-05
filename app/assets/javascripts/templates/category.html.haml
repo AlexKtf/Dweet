@@ -16,11 +16,8 @@
     #category-submenu-items
       %ul
         %li{ class: 'animate-opacity', data: { 'ng-repeat' => 'item in items | filter: searchVideo' } }
-          %span.play-icon.glyphicon.glyphicon-play-circle{ data: { 'ng-show' => 'selectedVideo.id == item.id || clip.id == item.id' } }
-          %a{ data: { 'ng-class' => '{active: selectedVideo.id == item.id}', 'ng-click' => 'setSelectedVideo(item)' } }
-            {{item.title}}
-          %span.label.label-warning
-            {{item.is_playlist ? 'Playlist' : 'Video'}}
+          %a{ data: { 'ng-class' => '{active: selectedVideo.id == item.id || clip.id == item.id}', 'ng-click' => 'setSelectedVideo(item)' } }
+            %div{ data: { 'title-label' => '', 'item' => 'item' } }
 #category-video-block.col-md-7
   #home-category-block
     #radio-clip-button

@@ -13,7 +13,9 @@ Dweet.controller 'CategoryCtrl',
     $scope.items = data
     $scope.allItems = data
     if $routeParams['videoId']?
-      $scope.setSelectedVideo($filter('filter')($scope.items, {id: $routeParams['videoId']})[0])
+      end_of_id = $routeParams['videoId'].indexOf('-')
+      id = $routeParams['videoId'].slice(0, end_of_id)
+      $scope.setSelectedVideo($filter('filter')($scope.items, {id: id})[0])
     else
       $scope.setSelectedVideo($scope.items[0])
     $scope.loading = false

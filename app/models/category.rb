@@ -5,6 +5,12 @@ class Category < ActiveRecord::Base
   validates :name, presence: true
 
   def top_videos
-    videos.order('videos.created_at DESC').limit(9)
+    videos.select('videos.id, videos.title, videos.image_preview_url, videos.is_playlist')
+    .order('videos.created_at DESC')
+    .limit(5)
+  end
+
+  def slug
+    "#{id}-#{name.parameterize}"
   end
 end

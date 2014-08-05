@@ -1,44 +1,38 @@
+#home-view
+  min-height: 100%
 .category-block
   padding: 15px
-  text-align: center
 .category-inblock
-  padding: 40px 50px
+  padding: 20px
   background-color: hsl(0, 100%, 100%)
   border: 1px solid hsl(0, 0%, 85%)
-.category-name
-  font-size: 40px
-.slick-inblock
-  position: relative
-  &:hover
-    .category-video-title
-      display: block
-.category-video-title
-  display: none
-  position: absolute
-  bottom: 0
-  background: hsl(0, 0%, 93%)
-  opacity: 0.7
-  width: 96%
-.category-explore
-  margin-top: 10px
-  padding: 0 10px
-  text-align: left
-  display: table
-  width: 100%
+.category-inblock-right
+  padding-top: 5px
+  h2
+    margin-top: 0
+    margin-bottom: 6px
+    a
+      color: black
+      &:hover
+        color: black
+.category-explore-link
+  margin: 20px 0
+.category-videos-count
+  font-size: 16px
+  margin-left: 15px
+  display: inline-block
+.category-inblock-news
+  font-family: "Open Sans",Arial,sans-serif
+  padding: 3px 0
+  font-size: 12px
+  color: hsl(0, 0%, 40%)
   a
-    color: hsl(0, 0%, 40%)
-    font-size: 18px
+    color: hsl(0, 0%, 70%)
+    top: 2px
+    margin-right: 3px
     &:hover
       color: black
       text-decoration: none
-.category-explore-link
-  display: table-cell
-.category-videos-count
-  text-align: right
-  display: table-cell
-  padding-right: 7px
-  font-size: 16px
-
 
 #category-submenu
   height: 100%
@@ -54,9 +48,7 @@
 #category-submenu-items
   ul
     padding: 0
-    .play-icon
-      position: absolute !important
-      left: 0
+    .glyphicon
       top: 2px
       right: 3px
     li
@@ -66,7 +58,7 @@
       font-size: 18px
       position: relative
       a
-        color: hsl(0, 0%, 30%)
+        color: hsl(0, 0%, 45%)
         &:hover
           color: black
           cursor: pointer

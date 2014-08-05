@@ -5,7 +5,7 @@ class CategoriesController < ApplicationController
 
     if stale? categories
       respond_to do |format|
-        format.json { render json: categories, only: [:id, :name], root: false }
+        format.json { render json: categories, only: [:slug, :name], root: false }
       end
     end
   end
@@ -14,9 +14,22 @@ class CategoriesController < ApplicationController
     
     if stale? Video.order('created_at DESC').first
 
-      categories_items = {}
+      categories_items = []
       Category.order('categories.created_at DESC').each do |category|
-        categories_items.merge!(category.name => { items: category.videos.limit(6), videos_count: category.videos.count })
+        items = category.top_videos
+        videos_items = []
+
+        items.each do |item|
+          videos_items << [path_slug: "#{category.slug}/#{item.slug}", item: item]
+        end
+
+        categories_items << [
+          name: category.name,
+          slug: category.slug,
+          items: videos_items,
+          videos_count: category.videos.videos.count,
+          playlists_count: category.videos.playlists.count
+        ]
       end
 
       respond_to do |format|
@@ -30,7 +43,7 @@ class CategoriesController < ApplicationController
 
     if stale? @category
       respond_to do |format|
-        format.html { redirect_to "/#/categories/#{@category.id}" }
+        format.html { redirect_to "/#/categories/#{@category.slug}" }
         format.json { render json: @category.videos.order('created_at DESC'), root: false }
       end
     end

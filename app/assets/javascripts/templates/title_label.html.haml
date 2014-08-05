@@ -1,0 +1,4 @@
+%span{ data: { 'ng-switch' => '', 'on' => 'item.is_playlist' } }
+  %span.glyphicon.glyphicon-list{ data: { 'ng-switch-when' => 'true' } }
+  %span.glyphicon.glyphicon-play-circle{ data: { 'ng-switch-when' => 'false'} }
+  {{item.title}}

@@ -12,7 +12,7 @@
           Make We Dweet Tv
       %ul
         %li{ data: { 'ng-repeat' => 'category in categories' } }
-          %a{ data: { 'ng-href' => 'categories/{{category.id}}' } }
+          %a{ data: { 'ng-href' => 'categories/{{category.slug}}' } }
             {{category.name}}
     #view{ data: { 'ng-view' => '' } }
 
