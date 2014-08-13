@@ -11,4 +11,5 @@
             {{category[0].playlists_count}} Playlists & {{category[0].videos_count}} Videos
         .category-inblock-news{ data: { 'ng-repeat' => 'video in category[0].items' } }
           %a{ data: { 'ng-href' => 'categories/{{video[0].path_slug}}' } }
-            %span{ data: { 'title-label' => '', 'item' => 'video[0].item' } }
+            %span.glyphicon{ data: { 'ng-class' => "video[0].item.is_playlist ? 'glyphicon-list' : 'glyphicon-play-circle'"  } }
+            {{video[0].item.title}}
