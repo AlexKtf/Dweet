@@ -21,14 +21,16 @@
               %div{ data: { 'title-label' => '', 'item' => 'item' } }
       #category-submenu-entertain
         .cell-entertain
-          %button.btn.btn-default{ data: { 'ng-click' => 'setRandomSelectedVideo()' } }
-            Random
-        .cell-entertain
           %button.btn.btn-default{ data: { 'ng-class' => '{active: radioClip}', 'ng-click' => 'setRadioClip()' } }
             %span.play-icon.glyphicon.glyphicon-play-circle
             Launch Video Flow
-          %span.radio-counter{ data: { 'ng-if' => 'radioClip' } }
-            {{displayRadioIndex()}} / {{radioItems.length}}
+        .cell-entertain
+          %div.animate-opacity{ data: { 'ng-if' => 'radioClip' } }
+            %button.btn.btn-default{ 'title' => 'Random', data: { 'ng-click' => 'radioClipToRandom()', 'ng-class' => '{active: randomizeRadioClip}' } }
+              %span.play-icon.glyphicon.glyphicon-random
+            %button.btn.btn-default{ 'title' => 'Repeat', data: { 'ng-click' => 'radioClipToRepeat()', 'ng-class' => '{active: repeatizeRadioClip}' } }
+              %span.play-icon.glyphicon.glyphicon-repeat
+
 #category-video-block.col-md-7
   #selected-video-block{ data: { 'ng-if' => 'radioClip' } }
     #selected-video-title
@@ -36,13 +38,7 @@
     #selected-video-iframe
       #radio-iframe{ data: { 'youtube-video' => '', 'video-id' => 'clip.url' } }
     #radio-between
-      %a.animate-opacity{ data: { 'ng-click' => 'prevRadioClip()', 'ng-show' => 'prevClip' } }
-        %span.glyphicon.glyphicon-chevron-left
-        {{prevClip.title}}
-      %a.animate-opacity.pull-right{ data: {'ng-click' => 'nextRadioClip()', 'ng-show' => 'nextClip && !letRepeatRadio' } }
-        {{nextClip.title}}
-        %span.glyphicon.glyphicon-chevron-right
-      %a.animate-opacity.pull-right{ data: {'ng-click' => 'repeatRadioClip()', 'ng-show' => 'letRepeatRadio' } }
+      %a.animate-opacity.pull-right{ data: {'ng-click' => 'repeatRadioClip()', 'ng-show' => 'letRepeatFlow' } }
         Repeat Video Flow
         %span.glyphicon.glyphicon-repeat
 

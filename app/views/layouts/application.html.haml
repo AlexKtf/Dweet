@@ -1,19 +1,18 @@
 !!!5
 %html
   %head
-    %title Make We Dweet TV - Bass Music Pon de Internet
+    %title Mek We Dweet TV - Bass Music Pon de Internet
     %base{ href: '/' }
     = stylesheet_link_tag 'application', media: 'all'
     = csrf_meta_tags
   %body{ data: { 'ng-app' => 'Dweet'} }
-    #main-menu.col-md-2{ data: { 'ng-controller' => 'MainMenuCtrl' } }
+    #main-menu.col-md-2
       #logo
-        %a{ data: { 'ng-href' => '/' } }
-          Make We Dweet Tv
+        = link_to 'Mek We Dweet Tv', root_path
       %ul
-        %li{ data: { 'ng-repeat' => 'category in categories' } }
-          %a{ data: { 'ng-href' => 'categories/{{category.slug}}' } }
-            {{category.name}}
+        - Category.select('id, name, updated_at').order('categories.created_at DESC').each do |category|
+          %li
+            = link_to category.name, "categories/#{category.slug}"
     #view{ data: { 'ng-view' => '' } }
 
     = javascript_include_tag 'application'

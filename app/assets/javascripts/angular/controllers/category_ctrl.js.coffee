@@ -1,11 +1,12 @@
 Dweet.controller 'CategoryCtrl',
 ['$scope', '$http', '$routeParams', '$rootScope', '$sce', '$filter', '$youtube', '$timeout', 'filterFilter',
 ($scope, $http, $routeParams, $rootScope, $sce, $filter, $youtube, $timeout, filterFilter) ->
-  
 
   $scope.selectedFilter = 'all'
   $scope.radioClip = false
   $scope.loading = true
+  $scope.randomizeRadioClip = false
+  $scope.repeatizeRadioClip = false
 
   $http.get('/categories/'+$routeParams['id']+'.json')
   .success (data, status) ->
@@ -19,7 +20,6 @@ Dweet.controller 'CategoryCtrl',
     else
       $scope.setSelectedVideo($scope.items[0])
     $scope.loading = false
-
   .error (data, status) ->
     alert 'Error'
 
@@ -28,55 +28,64 @@ Dweet.controller 'CategoryCtrl',
     $scope.radioClip = true
     $scope.selectedVideo = null
     $scope.radioCurrentIndex = 0
-    $scope.prevClip = null
-    $scope.nextClip = null
+    $scope.randomNumber = 0
+    $scope.alreadyPlayedInRandom = []
+    $scope.letRepeatFlow = false
 
   $scope.setRadioClip = () ->
     return if $scope.radioClip
 
     $scope.initRadioClip()
     $scope.radioItems = filterFilter($scope.allItems, { is_playlist: false })
-    $scope.clip = $scope.radioItems[0]
-    $scope.nextClip = $scope.radioItems[1]
+    $scope.clip = $scope.radioItems[$scope.radioCurrentIndex]
+    $scope.alreadyPlayedInRandom.push($scope.radioCurrentIndex)
 
   $scope.nextRadioClip = () ->
-    $scope.radioCurrentIndex = $scope.radioCurrentIndex + 1
-    $scope.setPrevAndNextRadioClip()
-    $scope.clip = $scope.radioItems[$scope.radioCurrentIndex]
+    if !$scope.randomizeRadioClip
+      clip = $scope.getNextVideo()
+      if !clip?
+        $scope.automaticRepeatOrNot()
+      else
+        $scope.clip = clip
+    else
+      if $scope.alreadyPlayedInRandom.length == $scope.radioItems.length
+        $scope.automaticRepeatOrNot()
+      else
+        $scope.clip = $scope.getRandomAvalaibleVideo()
 
-    if !$scope.nextClip?
-      $scope.letRepeatRadio = true
-      return
+
+  $scope.getRandomAvalaibleVideo = () ->
+    $scope.randomNumber = Math.floor(Math.random()*$scope.radioItems.length) while $scope.alreadyPlayedInRandom.indexOf($scope.randomNumber) > -1
+    $scope.alreadyPlayedInRandom.push($scope.randomNumber)
+    return $scope.radioItems[$scope.randomNumber]
+
+  $scope.getNextVideo = () ->
+    $scope.radioCurrentIndex = $scope.radioCurrentIndex + 1
+    return $scope.radioItems[$scope.radioCurrentIndex]
+
+  $scope.automaticRepeatOrNot = () ->
+    if $scope.repeatizeRadioClip
+      $scope.repeatRadioClip()
+    else
+      $scope.letRepeatFlow = true
 
   $scope.repeatRadioClip = () ->
     $scope.radioClip = false
-    $scope.letRepeatRadio = false
     $scope.setRadioClip()
 
-  $scope.prevRadioClip = () ->
-    $scope.radioCurrentIndex = $scope.radioCurrentIndex - 1
-    $scope.clip = $scope.radioItems[$scope.radioCurrentIndex]
-    $scope.setPrevAndNextRadioClip()
-
-  $scope.setPrevAndNextRadioClip = () ->
-    $scope.nextClip = $scope.radioItems[$scope.radioCurrentIndex + 1] ? null
-    $scope.prevClip = $scope.radioItems[$scope.radioCurrentIndex - 1] ? null
-
-  $scope.displayRadioIndex = () ->
-    return $scope.radioCurrentIndex + 1
 
   $scope.$on 'youtube.player.ended', () ->
-    $timeout () ->
-      $scope.nextRadioClip()
-    , 1000
+    $scope.nextRadioClip()
 
   $scope.$on 'youtube.player.ready', () ->
     $youtube.player.playVideo() if $scope.radioClip
+  
+  $scope.radioClipToRandom = () ->
+    $scope.randomizeRadioClip = !$scope.randomizeRadioClip
 
-  $scope.setRandomSelectedVideo = () ->
-    $scope.radioClip = false
-    randomNumber = Math.floor(Math.random()*$scope.items.length)
-    $scope.setSelectedVideo($scope.items[randomNumber])
+  $scope.radioClipToRepeat = () ->
+    $scope.repeatizeRadioClip = !$scope.repeatizeRadioClip
+
 
   $scope.setSelectedVideo = (video) ->
     $scope.clip = false

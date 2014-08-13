@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
 
   get'categories-items', to: 'categories#categories_items'
-  resources :categories, only: [:show, :index] do
+  resources :categories, only: :show do
     get '/:id', to: 'videos#show'
   end
 

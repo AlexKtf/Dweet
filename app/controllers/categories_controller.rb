@@ -1,15 +1,5 @@
 class CategoriesController < ApplicationController
 
-  def index
-    categories = Category.select('id, name, updated_at').order('categories.created_at DESC')
-
-    if stale? categories
-      respond_to do |format|
-        format.json { render json: categories, only: [:slug, :name], root: false }
-      end
-    end
-  end
-
   def categories_items
     
     if stale? Video.order('created_at DESC').first
