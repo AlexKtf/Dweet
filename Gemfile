@@ -10,6 +10,9 @@ gem 'active_model_serializers'
 
 gem 'yt'
 
+gem 'newrelic_rpm'
+gem 'dalli'
+
 
 # CSS
 gem 'bootstrap-sass', '~> 3.1.1'
