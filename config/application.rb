@@ -22,6 +22,5 @@ module Dweet
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
 
     
-    config.middleware.use Rack::Deflater
   end
 end
