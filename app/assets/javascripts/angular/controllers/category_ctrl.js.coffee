@@ -43,15 +43,12 @@ Dweet.controller 'CategoryCtrl',
   $scope.nextRadioClip = () ->
     if !$scope.randomizeRadioClip
       clip = $scope.getNextVideo()
-      if !clip?
-        $scope.automaticRepeatOrNot()
-      else
-        $scope.clip = clip
+
+      return $scope.automaticRepeatOrNot() if !clip?
+      $scope.clip = clip
     else
-      if $scope.alreadyPlayedInRandom.length == $scope.radioItems.length
-        $scope.automaticRepeatOrNot()
-      else
-        $scope.clip = $scope.getRandomAvalaibleVideo()
+      return $scope.automaticRepeatOrNot() if $scope.alreadyPlayedInRandom.length == $scope.radioItems.length
+      $scope.clip = $scope.getRandomAvalaibleVideo()
 
 
   $scope.getRandomAvalaibleVideo = () ->

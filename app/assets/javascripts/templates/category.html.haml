@@ -1,15 +1,15 @@
 #category-submenu.col-md-3
-  #submenu
-    #submenu-block.animate-opacity{ data: { 'ng-if' => '!loading' } }
+  #submenu.animate-opacity{ data: { 'ng-if' => '!loading' } }
+    #submenu-block
       #category-submenu-title
         {{categoryName}}
       #category-submenu-random
         .btn-group
-          %button.btn.btn-default{ type: 'button', data: { 'ng-click' => "itemTypeFilter('false')", 'ng-class' => "{ active: selectedFilter == 'false' }" } }
+          %button.btn.btn-default{ type: 'button', data: { 'ng-click' => "itemTypeFilter('false')", 'ng-class' => "{active: selectedFilter == 'false'}" } }
             Videos
-          %button.btn.btn-default{ type: 'button', data: { 'ng-click' => "itemTypeFilter('all')", 'ng-class' => "{ active: selectedFilter == 'all' }" } }
+          %button.btn.btn-default{ type: 'button', data: { 'ng-click' => "itemTypeFilter('all')", 'ng-class' => "{active: selectedFilter == 'all'}" } }
             All
-          %button.btn.btn-default{ type: 'button', data: { 'ng-click' => "itemTypeFilter('true')", 'ng-class' => "{ active: selectedFilter == 'true' }" } }
+          %button.btn.btn-default{ type: 'button', data: { 'ng-click' => "itemTypeFilter('true')", 'ng-class' => "{active: selectedFilter == 'true'}" } }
             Playlists
       #category-submenu-filter
         %span.glyphicon.glyphicon-search
@@ -18,7 +18,8 @@
         %ul
           %li{ class: 'animate-opacity', data: { 'ng-repeat' => 'item in items | filter: searchVideo' } }
             %a{ data: { 'ng-class' => '{active: selectedVideo.id == item.id || clip.id == item.id}', 'ng-click' => 'setSelectedVideo(item)' } }
-              %div{ data: { 'title-label' => '', 'item' => 'item' } }
+              %span.glyphicon{ data: { 'ng-class' => "item.is_playlist ? 'glyphicon-list' : 'glyphicon-play-circle'"  } }
+              {{item.title}}
       #category-submenu-entertain
         .cell-entertain
           %button.btn.btn-default{ data: { 'ng-class' => '{active: radioClip}', 'ng-click' => 'setRadioClip()' } }
