@@ -5,10 +5,9 @@ class CategoriesController < ApplicationController
     if stale? Video.order('created_at DESC').first
 
       categories_items = []
-      Category.order('categories.created_at DESC').each do |category|
+      Category.main_category.order('categories.created_at DESC').each do |category|
         items = category.top_videos
         videos_items = []
-
         items.each do |item|
           videos_items << [path_slug: "#{category.slug}/#{item.slug}", item: item]
         end
@@ -17,8 +16,8 @@ class CategoriesController < ApplicationController
           name: category.name,
           slug: category.slug,
           items: videos_items,
-          videos_count: category.videos.videos.count,
-          playlists_count: category.videos.playlists.count
+          videos_count: category.subcategories_videos.videos.count,
+          playlists_count: category.subcategories_videos.playlists.count
         ]
       end
 
@@ -30,11 +29,13 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])
+    @videos = @category.subcategories_videos.order('created_at DESC')
 
-    if stale? @category
+    if stale? @videos
+
       respond_to do |format|
         format.html { redirect_to "/#/categories/#{@category.slug}" }
-        format.json { render json: @category.videos.order('created_at DESC'), root: false }
+        format.json { render json: @videos, meta: { category_name: @category.name, subcategories_names: @category.subcategories.pluck(:name) } }
       end
     end
   end

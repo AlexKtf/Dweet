@@ -10,9 +10,10 @@ Dweet.controller 'CategoryCtrl',
 
   $http.get('/categories/'+$routeParams['id']+'.json')
   .success (data, status) ->
-    $scope.categoryName = data[0].category_name
-    $scope.items = data
-    $scope.allItems = data
+    $scope.categoryName = data.meta.category_name
+    $scope.items = data.categories
+    $scope.allItems = data.categories
+    $scope.subcategories = data.meta.subcategories_names
     if $routeParams['videoId']?
       end_of_id = $routeParams['videoId'].indexOf('-')
       id = $routeParams['videoId'].slice(0, end_of_id)
@@ -36,7 +37,10 @@ Dweet.controller 'CategoryCtrl',
     return if $scope.radioClip
 
     $scope.initRadioClip()
-    $scope.radioItems = filterFilter($scope.allItems, { is_playlist: false })
+    if $scope.selectedFilter == 'all'
+      $scope.radioItems = filterFilter($scope.allItems, { is_playlist: false })
+    else
+      $scope.radioItems = filterFilter($scope.allItems, { category_name: $scope.selectedFilter, is_playlist: false })
     $scope.clip = $scope.radioItems[$scope.radioCurrentIndex]
     $scope.alreadyPlayedInRandom.push($scope.radioCurrentIndex)
 
@@ -96,5 +100,5 @@ Dweet.controller 'CategoryCtrl',
     if type == 'all'
       $scope.items = $scope.allItems
       return
-    $scope.items = filterFilter($scope.allItems, { is_playlist: type })
+    $scope.items = filterFilter($scope.allItems, { category_name: type })
 ]

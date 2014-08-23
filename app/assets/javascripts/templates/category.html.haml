@@ -4,13 +4,10 @@
       #category-submenu-title
         {{categoryName}}
       #category-submenu-random
-        .btn-group
-          %button.btn.btn-default{ type: 'button', data: { 'ng-click' => "itemTypeFilter('false')", 'ng-class' => "{active: selectedFilter == 'false'}" } }
-            Videos
-          %button.btn.btn-default{ type: 'button', data: { 'ng-click' => "itemTypeFilter('all')", 'ng-class' => "{active: selectedFilter == 'all'}" } }
-            All
-          %button.btn.btn-default{ type: 'button', data: { 'ng-click' => "itemTypeFilter('true')", 'ng-class' => "{active: selectedFilter == 'true'}" } }
-            Playlists
+        %button.btn.btn-default{ type: 'button', data: { 'ng-click' => "itemTypeFilter('all')", 'ng-class' => "{active: selectedFilter == 'all'}"  } }
+          all
+        %button.btn.btn-default{ type: 'button', data: { 'ng-repeat' => 'sub in subcategories', 'ng-click' => "itemTypeFilter(sub)", 'ng-class' => "{active: selectedFilter == 'false'}"  } }
+          {{sub}}
       #category-submenu-filter
         %span.glyphicon.glyphicon-search
         %input.form-control{ data: { 'ng-model' => 'searchVideo.title' } }
@@ -38,7 +35,10 @@
       {{clip.title}}
     #selected-video-iframe
       #radio-iframe{ data: { 'youtube-video' => '', 'video-id' => 'clip.url' } }
-    #radio-between
+    #radio-between{ data: { 'ng-if' => 'items.length > 1' } }
+      %a.animate-opacity.pull-right{ data: {'ng-click' => 'nextRadioClip()', 'ng-show' => '!letRepeatFlow' } }
+        Next
+        %span.glyphicon.glyphicon-step-forward
       %a.animate-opacity.pull-right{ data: {'ng-click' => 'repeatRadioClip()', 'ng-show' => 'letRepeatFlow' } }
         Repeat Video Flow
         %span.glyphicon.glyphicon-repeat

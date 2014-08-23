@@ -1,0 +1,24 @@
+.col-xs-12.col-md-6
+  = render 'admin/categories/new_sub'
+  %hr
+  %br
+  %ul.list-group
+    - category.subcategories.each do |sub|
+      %li.list-group-item
+        = link_to sub.name, admin_category_path(sub.id)
+        = link_to admin_category_path(sub.id), method: :delete, class: 'pull-right' do
+          %span.glyphicon.glyphicon-remove{ style: 'margin-left: 15px; color: hsl(2, 65%, 50%)' }
+        %span.badge
+          = "Playlists : #{sub.videos.playlists.count}"
+        %span.badge
+          = "Videos : #{sub.videos.videos.count}"
+.col-xs-12.col-md-6
+  %h3 Total
+  = "Videos: #{category.subcategories_videos.videos.count}"
+  = "Playlists: #{category.subcategories_videos.playlists.count}"
+  %h3 Last videos
+  %ul#list-last-videos
+    - category.subcategories_videos.order('created_at DESC').each do |video|
+      %li
+        %span.glyphicon{ class: (video.is_playlist ? 'glyphicon-list' : 'glyphicon-play')}
+        = video.title

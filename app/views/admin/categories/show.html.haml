@@ -1,39 +1,10 @@
 .jumbotron
-  %h1= @category.name
+  %h1
+    = link_to @category.name, admin_category_path(@category)
+    - if @subcategory
+      = " - #{@subcategory.name}"
 .row
-  .col-xs-12.col-md-6
-    = render 'admin/videos/new'
-    %hr
-    - if @videos.count.zero?
-      = 'No videos'
-    - @videos.each do |video|
-      .media.col-xs-12
-        = link_to '#', class: 'pull-left' do
-          = image_tag video.image_preview_url, width: '120'
-        .media-body
-          %h4.media-heading
-            = video.title
-            = link_to admin_video_path(video.id), method: :delete do
-              %span.glyphicon.glyphicon-remove{ style: 'color: hsl(2, 65%, 50%)' }
-          Created : 
-          = video.created_at.to_formatted_s(:long_ordinal)
-  .col-xs-12.col-md-6
-    = render 'admin/playlists/new'
-    %hr
-    - if @playlists.count.zero?
-      = 'No playlist'
-    - @playlists.order('updated_at DESC').each do |playlist|
-      .media.col-xs-12
-        = link_to '#', class: 'pull-left' do
-          = image_tag playlist.image_preview_url, width: '120'
-        .media-body
-          %h4.media-heading
-            = playlist.title
-            = link_to admin_video_path(playlist.id), method: :delete do
-              %span.glyphicon.glyphicon-remove{ style: 'color: hsl(2, 65%, 50%)' }
-          / TODO: Playlist video count
-          / # = "Videos count : #{playlist..count}"TOto
-          %br
-          Created : 
-          = playlist.created_at.to_formatted_s(:long_ordinal)
-
+  - if @subcategory
+    = render 'admin/categories/subcategory_show', subcategory: @subcategory, videos: @videos, playlists: @playlists
+  - else
+    = render 'admin/categories/category_show', category: @category

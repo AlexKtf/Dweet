@@ -14,6 +14,10 @@
             %ul.nav.navbar-nav.navbar-left
               %li{ class: ('active' if current_page?(admin_dashboard_index_path))}
                 = link_to 'Dashboard', admin_dashboard_index_path
+              - Category.main_category.each do |main|
+                %li{ class: ('active' if current_page?(admin_category_path(main)))}
+                  = link_to main.name, admin_category_path(main)
+
             %ul.nav.navbar-nav.navbar-right
               %li
                 = link_to 'Deconnexion', destroy_user_session_path, method: :delete

@@ -10,7 +10,7 @@
       #logo
         = link_to 'Mek We Dweet Tv', root_path
       %ul
-        - Category.select('id, name, updated_at').order('categories.created_at DESC').each do |category|
+        - Category.main_category.select('id, name, updated_at').order('categories.created_at DESC').each do |category|
           %li
             = link_to category.name, "categories/#{category.slug}"
     #view{ data: { 'ng-view' => '' } }

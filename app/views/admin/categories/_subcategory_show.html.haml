@@ -1,0 +1,33 @@
+.col-xs-12.col-md-6
+  = render 'admin/videos/new', subcategory: subcategory
+  %hr
+  - if videos.count.zero?
+    = 'No videos'
+  - videos.each do |video|
+    .media.col-xs-12
+      = link_to '#', class: 'pull-left' do
+        = image_tag video.image_preview_url, width: '120'
+      .media-body
+        %h4.media-heading
+          = video.title
+          = link_to admin_video_path(video.id), method: :delete do
+            %span.glyphicon.glyphicon-remove{ style: 'color: hsl(2, 65%, 50%)' }
+        Created : 
+        = video.created_at.to_formatted_s(:long_ordinal)
+.col-xs-12.col-md-6
+  = render 'admin/playlists/new', subcategory: subcategory
+  %hr
+  - if playlists.count.zero?
+    = 'No playlist'
+  - playlists.order('updated_at DESC').each do |playlist|
+    .media.col-xs-12
+      = link_to '#', class: 'pull-left' do
+        = image_tag playlist.image_preview_url, width: '120'
+      .media-body
+        %h4.media-heading
+          = playlist.title
+          = link_to admin_video_path(playlist.id), method: :delete do
+            %span.glyphicon.glyphicon-remove{ style: 'color: hsl(2, 65%, 50%)' }
+        %br
+        Created : 
+        = playlist.created_at.to_formatted_s(:long_ordinal)
