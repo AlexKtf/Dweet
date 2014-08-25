@@ -16,8 +16,7 @@ class CategoriesController < ApplicationController
           name: category.name,
           slug: category.slug,
           items: videos_items,
-          videos_count: category.subcategories_videos.videos.count,
-          playlists_count: category.subcategories_videos.playlists.count
+          videos_count: category.subcategories_videos.count
         ]
       end
 
@@ -31,7 +30,7 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:id])
     @videos = @category.subcategories_videos.order('created_at DESC')
 
-    if stale? @videos
+    if stale? @category.subcategories.order('created_at DESC').first
 
       respond_to do |format|
         format.html { redirect_to "/#/categories/#{@category.slug}" }

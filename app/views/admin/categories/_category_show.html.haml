@@ -18,7 +18,7 @@
   = "Playlists: #{category.subcategories_videos.playlists.count}"
   %h3 Last videos
   %ul#list-last-videos
-    - category.subcategories_videos.order('created_at DESC').each do |video|
+    - category.subcategories_videos.order('created_at DESC').limit(10).each do |video|
       %li
         %span.glyphicon{ class: (video.is_playlist ? 'glyphicon-list' : 'glyphicon-play')}
         = video.title

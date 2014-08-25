@@ -8,7 +8,7 @@
           %a{ data: { 'ng-href' => 'categories/{{category[0].slug}}' } }
             {{category[0].name}}
           %span.pull-right.category-videos-count
-            {{category[0].playlists_count}} Playlists & {{category[0].videos_count}} Videos
+            {{category[0].videos_count}} Playlists & Videos
         .category-inblock-news{ data: { 'ng-repeat' => 'video in category[0].items' } }
           %a{ data: { 'ng-href' => 'categories/{{video[0].path_slug}}' } }
             %span.glyphicon{ data: { 'ng-class' => "video[0].item.is_playlist ? 'glyphicon-list' : 'glyphicon-play-circle'"  } }
