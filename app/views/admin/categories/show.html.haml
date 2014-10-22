@@ -3,8 +3,10 @@
     = link_to @category.name, admin_category_path(@category)
     - if @subcategory
       = " - #{@subcategory.name}"
+    - if @common
+      = '- Common'
 .row
-  - if @subcategory
-    = render 'admin/categories/subcategory_show', subcategory: @subcategory, videos: @videos, playlists: @playlists
+  - if @subcategory or @common
+    = render 'admin/categories/subcategory_show', category: (@subcategory || @common), videos: @videos, playlists: @playlists
   - else
     = render 'admin/categories/category_show', category: @category

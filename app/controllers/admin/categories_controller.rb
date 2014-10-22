@@ -11,11 +11,12 @@ class Admin::CategoriesController < Admin::BaseController
 
   def show
     @category = Category.find(params[:id])
+
+    @common = @category if params[:common]
+
     unless @category.main_category.nil?
       @subcategory = @category
       @category = @subcategory.main_category
-      @playlists = @subcategory.videos.playlists
-      @videos = @subcategory.videos.videos
     end
 
   end

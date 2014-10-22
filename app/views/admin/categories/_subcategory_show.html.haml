@@ -1,9 +1,15 @@
 .col-xs-12.col-md-6
-  = render 'admin/videos/new', subcategory: subcategory
+  #week-video-new
+    %h2 Add a video
+    = simple_form_for Video.new, url: admin_videos_path do |f|
+      = f.input :url, label: 'key', required: false, autofocus: true
+      = f.input :category_id, as: :hidden, input_html: { value: category.id }
+      .form-actions
+        = f.button :submit, 'Add'
   %hr
-  - if videos.count.zero?
+  - if category.videos.videos.count.zero?
     = 'No videos'
-  - videos.each do |video|
+  - category.videos.videos.each do |video|
     .media.col-xs-12
       = link_to '#', class: 'pull-left' do
         = image_tag video.image_preview_url, width: '120'
@@ -15,11 +21,18 @@
         Created : 
         = video.created_at.to_formatted_s(:long_ordinal)
 .col-xs-12.col-md-6
-  = render 'admin/playlists/new', subcategory: subcategory
+  #playlist-new
+    %h2 Add a playlist
+    = simple_form_for Video.new, url: admin_videos_path do |f|
+      = f.input :url, label: 'key', required: false
+      = f.input :category_id, as: :hidden, input_html: { value: category.id }
+      = f.input :is_playlist, as: :hidden, input_html: { value: true }
+      .form-actions
+        = f.button :submit, 'Add'
   %hr
-  - if playlists.count.zero?
+  - if category.videos.playlists.count.zero?
     = 'No playlist'
-  - playlists.order('updated_at DESC').each do |playlist|
+  - category.videos.playlists.order('updated_at DESC').each do |playlist|
     .media.col-xs-12
       = link_to '#', class: 'pull-left' do
         = image_tag playlist.image_preview_url, width: '120'

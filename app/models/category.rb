@@ -7,8 +7,14 @@ class Category < ActiveRecord::Base
 
   validates :name, presence: true
 
+
+  def all_videos
+    return videos unless main_category_id.nil?
+    Video.where(category_id: subcategories.pluck(:id).push(id))
+  end
+
   def top_videos
-    subcategories_videos.select('videos.id, videos.title, videos.image_preview_url, videos.is_playlist')
+    all_videos.select('videos.id, videos.title, videos.image_preview_url, videos.is_playlist')
     .order('videos.created_at DESC')
     .limit(5)
   end

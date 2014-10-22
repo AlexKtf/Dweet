@@ -1,8 +1,21 @@
 .col-xs-12.col-md-6
-  = render 'admin/categories/new_sub'
+  #category-new
+    %h2 Add a Subcategory
+    = simple_form_for Category.new, url: admin_categories_path do |f|
+      = f.input :name, required: false, autofocus: true
+      = f.hidden_field :main_category_id, value: @category.id
+      .form-actions
+        = f.button :submit, 'Add'
   %hr
   %br
   %ul.list-group
+    %li.list-group-item
+      = link_to 'Common', admin_category_path(id: category.id, common: true )
+      %span.badge
+        = "Playlists : #{category.videos.playlists.count}"
+      %span.badge
+        = "Videos : #{category.videos.videos.count}"
+         
     - category.subcategories.each do |sub|
       %li.list-group-item
         = link_to sub.name, admin_category_path(sub.id)
@@ -14,11 +27,11 @@
           = "Videos : #{sub.videos.videos.count}"
 .col-xs-12.col-md-6
   %h3 Total
-  = "Videos: #{category.subcategories_videos.videos.count}"
-  = "Playlists: #{category.subcategories_videos.playlists.count}"
+  = "Videos: #{category.all_videos.videos.count}"
+  = "Playlists: #{category.all_videos.playlists.count}"
   %h3 Last videos
   %ul#list-last-videos
-    - category.subcategories_videos.order('created_at DESC').limit(10).each do |video|
+    - category.all_videos.order('created_at DESC').limit(10).each do |video|
       %li
         %span.glyphicon{ class: (video.is_playlist ? 'glyphicon-list' : 'glyphicon-play')}
         = video.title
