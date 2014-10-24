@@ -2,36 +2,51 @@
   font-family: 'BebasNeue'
   src: font-url('BebasNeue.otf')
 
-html,
-body
-  height: 100%
+html
+  background-color: hsl(0, 0%, 93%)
 body
   font-family: 'BebasNeue'
-
-html
-  margin: 0
+#header
+  height: 200px
+  background: black
   padding: 0
-  background-color: hsl(0, 0%, 93%)
-#view
-  background-color: hsl(0, 0%, 93%)
+#banner
+  background: image-url('twist.jpg') repeat
+  opacity: 0.7
   height: 100%
-#main-menu
+  width: 100%
   text-align: center
-  color: white
-  height: 100%
-  background: image-url('cartographer.png') repeat
-  ul
-    padding: 0
-    li
-      margin: 25px 0
-      font-size: 30px
-      list-style-type: none
+#main-menu
+  background: white
+  padding: 0
+  margin-bottom: 30px
+  li
+    background: white
+    border-bottom: 3px solid white
+    border-top: 3px solid white
+    text-align: center
+    &:hover
+      border-radius: 0
+      color: black
+      background: white
+      border-bottom: 3px solid hsl(358, 79%, 45%)
+    &.active
+      border-radius: 0
+      color: black
+      background: white
+      border-bottom: 3px solid hsl(358, 79%, 45%)
       a
-        color: white
-        &:hover
-          color: white
+        background: white
+    .glyphicon
+      font-size: 24px
+    font-size: 26px
+    a
+      color: black
+      &:hover
+        border-radius: 0
+        color: black
+        background: white
 #logo
-  margin: 50px 0
   font-size: 40px
   a
     color: white

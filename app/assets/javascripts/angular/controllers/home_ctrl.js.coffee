@@ -1,8 +1,13 @@
-Dweet.controller 'HomeCtrl', ['$scope', '$http', '$rootScope', ($scope, $http, $rootScope) ->
-  $http.get('/categories-items.json')
+Dweet.controller 'HomeCtrl', ['$scope', '$http', ($scope, $http) ->
+  $http.get('/home-items.json')
     .success (data, status) ->
-      $scope.categoriesItems = data
+      $scope.videos = data
+      $scope.playlists = data[1]
+      $scope.loading = false
     .error (data, status) ->
       alert 'Error'
+
+  $scope.loading = true
+
 
 ]

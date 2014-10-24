@@ -7,10 +7,11 @@ Rails.application.routes.draw do
     post '/admin', to: 'admin/sessions#create'
   end
 
-  get'categories-items', to: 'categories#categories_items'
-  resources :categories, only: :show do
+  resources :categories, only: [:index, :show] do
     get '/:id', to: 'videos#show'
   end
+
+  get '/home-items', to: 'home#home_items'
 
   namespace :admin do
     resources :dashboard, only: :index

@@ -1,66 +1,17 @@
-#home-view
-  min-height: 100%
-  padding-top: 35px
-.category-block
-  padding: 15px
-.category-inblock
-  padding: 20px
-  background-color: hsl(0, 100%, 100%)
-  border: 1px solid hsl(0, 0%, 85%)
-.category-inblock-right
-  padding-top: 5px
-  h2
-    margin-top: 0
-    margin-bottom: 6px
-    a
-      color: black
-      &:hover
-        color: black
-.category-explore-link
-  margin: 20px 0
-.category-videos-count
-  font-size: 16px
-  margin-left: 15px
-  display: inline-block
-.category-inblock-news
-  font-family: "Open Sans",Arial,sans-serif
-  padding: 3px 0
-  font-size: 12px
-  color: hsl(0, 0%, 40%)
-  a
-    color: hsl(0, 0%, 50%)
-    top: 2px
-    margin-right: 3px
-    &:hover
-      color: black
-      text-decoration: none
-
 #category-submenu
-  height: 100%
-  padding: 50px 20px
-#submenu
-  padding: 15px 0
-  background-color: hsl(0, 100%, 100%)
-  border: 1px solid hsl(0, 0%, 85%)
-  height: 100%
-#submenu-block
-  height: 100%
-#category-submenu-title
-  padding: 0 15px
-  text-align: center
-  margin: 30px 0
-  font-size: 42px
+  height: 600px
 #category-submenu-random
-  padding: 0 15px
   text-align: center
-  margin-bottom: 30px
   button
     margin: 0 5px 5px 5px
+    outline: none
+    &.active
+      color: hsl(358, 79%, 45%)
+      background: white
 #category-submenu-entertain
-  padding: 0 15px
+  margin-left: 25px
   display: table
   width: 100%
-  margin-top: 10px
   .cell-entertain
     text-align: center
     display: table-cell
@@ -79,33 +30,35 @@
     margin-right: 8px
 #category-submenu-items
   padding: 0
-  height: 58%
-  margin-bottom: 6%
+  height: 410px
+  margin: 10px 0 25px 0
   overflow-y: scroll
-  ul
-    padding: 0
+  img
+    width: 140px
+  .repeated-body
+    padding-top: 10px
+    padding-bottom: 20px
+    line-height: 20px
+    color: black
+    &.active
+      color: hsl(358, 79%, 45%)
+  .repeated-item
+    margin: 15px 0
+    font-size: 20px
+    &:hover
+      cursor: pointer
     .glyphicon
-      top: 2px
-      right: 3px
-    li
-      padding: 0 25px
-      margin: 18px 0
-      list-style-type: none
-      font-size: 18px
-      position: relative
-      a
-        color: hsl(0, 0%, 45%)
-        &:hover
-          color: black
-          cursor: pointer
-          text-decoration: none
-        &.active
-          color: black
+      top: 3px
+      left: 10px
+  .repeated-category
+    font-size: 16px
+    color: hsl(358, 79%, 45%)
 #category-submenu-filter
-  text-align: center
-  margin-bottom: 25px
+  text-align: right
+  width: 70%
   .glyphicon
-    margin-right: 10px
+    margin-left: 10px
+    margin-top: 2px
     font-size: 18px
     vertical-align: middle
   .form-control
@@ -114,7 +67,7 @@
 
 .animate-opacity.ng-enter,
 .animate-opacity.ng-leave
-  transition: 400ms ease-in all
+  transition: 800ms ease-in all
   position: relative
   display: block
 .animate-opacity.ng-enter.ng-enter-active,

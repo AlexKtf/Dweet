@@ -17,7 +17,7 @@ Dweet.config ['$routeProvider', '$locationProvider', ($routeProvider, $locationP
     .otherwise
       redirectTo: '/'
 
-  $locationProvider.html5Mode(true);
+  $locationProvider.html5Mode(true)
 ]
 
       

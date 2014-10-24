@@ -7,6 +7,8 @@ class Category < ActiveRecord::Base
 
   validates :name, presence: true
 
+  scope :main_category, -> () { where(main_category_id: nil) }
+
 
   def all_videos
     return videos unless main_category_id.nil?
@@ -27,10 +29,4 @@ class Category < ActiveRecord::Base
     "#{id}-#{name.parameterize}"
   end
 
-  class << self
-
-    def main_category
-      where(main_category_id: nil)
-    end
-  end
 end

@@ -6,13 +6,20 @@
     = stylesheet_link_tag 'application', media: 'all'
     = csrf_meta_tags
   %body{ data: { 'ng-app' => 'Dweet'} }
-    #main-menu.col-md-2
-      #logo
-        = link_to 'Mek We Dweet Tv', root_path
-      %ul
-        - Category.main_category.select('id, name, updated_at').order('categories.created_at DESC').each do |category|
-          %li
-            = link_to category.name, "categories/#{category.slug}"
+    #header.col-md-12
+      #banner
+        #logo
+          = link_to 'Mek We Dweet Tv', root_path
+    #main-menu.col-md-12
+      .col-md-1.col-xs-12
+      .col-md-10.col-xs-12
+        %ul.nav.nav-pills.nav-justified{ data: { 'ng-controller' => 'MenuCtrl' } }
+          %li{ data: { 'ng-click' => 'setActivePage(0)', 'ng-class' => '{active: activeCategoryId == 0}' } }
+            = link_to root_path do
+              %span.glyphicon.glyphicon-home
+          %li{ data: { 'ng-repeat' => 'category in categories', 'ng-click' => 'setActivePage(category.id)', 'ng-class' => '{active: category.id == activeCategoryId}' } }
+            %a{ data: { 'ng-href' => 'categories/{{category.slug}}' }}
+              {{category.name}} 
     #view{ data: { 'ng-view' => '' } }
 
     = javascript_include_tag 'application'

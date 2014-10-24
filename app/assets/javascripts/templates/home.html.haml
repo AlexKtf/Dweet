@@ -1,15 +1,40 @@
-#home-view.col-md-10
-  .col-md-6.col-xs-12.category-block.animate-opacity{ data: { 'ng-repeat' => 'category in categoriesItems' } }
-    .category-inblock.col-md-12.col-xs-12
-      .category-inblock-left.col-md-4.col-xs-12
-        %img{ width: '100%', height: '159px', data: { 'ng-src' => '{{category[0].items[0][0].item.image_preview_url}}' } }
-      .category-inblock-right.col-md-8.col-xs-12
-        %h2
-          %a{ data: { 'ng-href' => 'categories/{{category[0].slug}}' } }
-            {{category[0].name}}
-          %span.pull-right.category-videos-count
-            {{category[0].videos_count}} Playlists & Videos
-        .category-inblock-news{ data: { 'ng-repeat' => 'video in category[0].items' } }
-          %a{ data: { 'ng-href' => 'categories/{{video[0].path_slug}}' } }
-            %span.glyphicon{ data: { 'ng-class' => "video[0].item.is_playlist ? 'glyphicon-list' : 'glyphicon-play-circle'"  } }
-            {{video[0].item.title}}
+#home-view
+  .col-md-1.col-xs-12
+  #videos-list.col-md-5.col-xs-12
+    .items.panel.panel-default.animate-opacity{ data: { 'ng-if' => '!loading' } }
+      .panel-heading
+        Last Videos & Playlists
+      .panel-body
+        .col-md-12.media{ data: { 'ng-repeat' => 'video in videos' } }
+          .col-md-4.col-xs-12
+            %a{ data: { 'ng-href' => 'categories/{{video.main_category_slug}}/{{video.slug}}' } }
+              %img{ data: { 'ng-src' => '{{video.image_preview_url}}' } }
+          .col-md-8.col-xs-12
+            %a{ data: { 'ng-href' => 'categories/{{video.main_category_slug}}/{{video.slug}}' } }
+              %h4
+                {{video.title}}
+              %span.category-name
+                {{video.category_name}}
+  .col-md-5.col-xs-12
+    .panel.panel-default.animate-opacity{ data: { 'ng-if' => '!loading' } }
+      .panel-heading
+        Top Videos
+      .panel-body
+        .media{ data: { 'ng-repeat' => 'playlist in playlists' } }
+          %a.pull-left{ data: { 'ng-href' => 'categories/{{playlist.main_category_slug}}/{{playlist.slug}}' } }
+            %img.media-object{ data: { 'ng-src' => '{{playlist.image_preview_url}}' } }
+          .media-body
+            %h4.media-heading
+              {{playlist.title}}
+    .panel.panel-default.animate-opacity{ data: { 'ng-if' => '!loading' } }
+      .panel-heading
+        Top Playlists
+      .panel-body
+        .media{ data: { 'ng-repeat' => 'playlist in playlists' } }
+          %a.pull-left{ data: { 'ng-href' => '{{}}' } }
+            %img.media-object{ data: { 'ng-src' => '{{playlist.image_preview_url}}' } }
+          .media-body
+            %h4.media-heading
+              {{playlist.title}}
+    #logo-bottom.animate-opacity{ data: { 'ng-if' => '!loading' } }
+      Mek we Dweet Tv
