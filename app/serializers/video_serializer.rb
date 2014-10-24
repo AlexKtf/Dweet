@@ -14,11 +14,8 @@ class VideoSerializer < ApplicationSerializer
   end
 
   def main_category_slug
-    if object.category.main_category_id.present?
-      return object.category.main_category.slug
-    else
-      return object.category.slug
-    end
+    return object.category.main_category.slug unless object.category.main_category_id.nil?
+    object.category.slug
   end
 
   def slug
