@@ -9,5 +9,4 @@ Dweet.controller 'HomeCtrl', ['$scope', '$http', ($scope, $http) ->
 
   $scope.loading = true
 
-
 ]

@@ -10,16 +10,17 @@
       #banner
         #logo
           = link_to 'Mek We Dweet Tv', root_path
-    #main-menu.col-md-12
+    #main-menu.col-md-12{ data: { 'ng-controller' => 'MenuCtrl' } }
       .col-md-1.col-xs-12
       .col-md-10.col-xs-12
-        %ul.nav.nav-pills.nav-justified{ data: { 'ng-controller' => 'MenuCtrl' } }
+        %ul.nav.nav-pills.nav-justified
           %li{ data: { 'ng-click' => 'setActivePage(0)', 'ng-class' => '{active: activeCategoryId == 0}' } }
             = link_to root_path do
               %span.glyphicon.glyphicon-home
           %li{ data: { 'ng-repeat' => 'category in categories', 'ng-click' => 'setActivePage(category.id)', 'ng-class' => '{active: category.id == activeCategoryId}' } }
             %a{ data: { 'ng-href' => 'categories/{{category.slug}}' }}
-              {{category.name}} 
+              {{category.name}}
+      #preloader{ data: { 'ng-init' => "loader='#{asset_path('loading.gif')}'" } }
     #view{ data: { 'ng-view' => '' } }
 
     = javascript_include_tag 'application'

@@ -1,8 +1,9 @@
-Dweet.controller 'MenuCtrl', ['$scope', '$http', '$location', ($scope, $http, $location) ->
+Dweet.controller 'MenuCtrl', ['$rootScope', '$scope', '$http', '$location', ($rootScope, $scope, $http, $location) ->
 
   $http.get('/categories.json')
     .success (data, status) ->
       $scope.categories = data
+      $rootScope.loader = $scope.loader
     .error (data, status) ->
       alert 'Error'
 

@@ -1,4 +1,6 @@
 #home-view
+  #loader
+    %img{ data: { 'ng-src' => '{{loader}}', 'ng-if' => 'loading' } }
   .col-md-1.col-xs-12
   #videos-list.col-md-5.col-xs-12
     .items.panel.panel-default.animate-opacity{ data: { 'ng-if' => '!loading' } }
@@ -14,9 +16,9 @@
               %h4
                 {{video.title}}
               %span.category-name
-                {{video.category_name}}
-  .col-md-5.col-xs-12
-    .panel.panel-default.animate-opacity{ data: { 'ng-if' => '!loading' } }
+                {{video.main_category_name}} - {{video.category_name}}
+  .col-md-5.col-xs-12.animate-opacity{ data: { 'ng-if' => '!loading' } }
+    .panel.panel-default
       .panel-heading
         Top Videos
       .panel-body
@@ -26,7 +28,7 @@
           .media-body
             %h4.media-heading
               {{playlist.title}}
-    .panel.panel-default.animate-opacity{ data: { 'ng-if' => '!loading' } }
+    .panel.panel-default
       .panel-heading
         Top Playlists
       .panel-body
@@ -36,5 +38,5 @@
           .media-body
             %h4.media-heading
               {{playlist.title}}
-    #logo-bottom.animate-opacity{ data: { 'ng-if' => '!loading' } }
+    #logo-bottom
       Mek we Dweet Tv

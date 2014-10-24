@@ -1,5 +1,5 @@
 class VideoSerializer < ApplicationSerializer
-  attributes :id, :title, :url, :is_playlist, :slug, :image_preview_url, :yt_url, :main_category_slug, :category_name, :category_slug
+  attributes :id, :title, :url, :is_playlist, :slug, :image_preview_url, :yt_url, :main_category_name, :main_category_slug, :category_name, :category_slug
 
   def yt_url
     if object.is_playlist
@@ -10,6 +10,11 @@ class VideoSerializer < ApplicationSerializer
   end
 
   def category_name
+    object.category.name
+  end
+
+  def main_category_name
+    return object.category.main_category.name unless object.category.main_category_id.nil?
     object.category.name
   end
 
