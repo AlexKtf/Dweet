@@ -20,7 +20,6 @@
           %li{ data: { 'ng-repeat' => 'category in categories', 'ng-click' => 'setActivePage(category.id)', 'ng-class' => '{active: category.id == activeCategoryId}' } }
             %a{ data: { 'ng-href' => 'categories/{{category.slug}}' }}
               {{category.name}}
-      #preloader{ data: { 'ng-init' => "loader='#{asset_path('loading.gif')}'" } }
     #view{ data: { 'ng-view' => '' } }
 
     = javascript_include_tag 'application'

@@ -1,9 +1,8 @@
-Dweet.controller 'MenuCtrl', ['$rootScope', '$scope', '$http', '$location', ($rootScope, $scope, $http, $location) ->
+Dweet.controller 'MenuCtrl', ['$scope', '$http', '$location', ($scope, $http, $location) ->
 
   $http.get('/categories.json')
     .success (data, status) ->
       $scope.categories = data
-      $rootScope.loader = $scope.loader
     .error (data, status) ->
       alert 'Error'
 
@@ -27,6 +26,5 @@ Dweet.controller 'MenuCtrl', ['$rootScope', '$scope', '$http', '$location', ($ro
   $scope.setActivePage = (page) ->
     $scope.pageIsKnown = true
     $scope.activeCategoryId = page
-
 
 ]

@@ -1,6 +1,6 @@
 #home-view
-  #loader
-    %img{ data: { 'ng-src' => '{{loader}}', 'ng-if' => 'loading' } }
+  #loader{ data: { 'ng-if' => 'loading' } }
+    %img{ data: { 'ng-src' => "#{asset_path('loading.gif')}" } }
   .col-md-1.col-xs-12
   #videos-list.col-md-5.col-xs-12
     .items.panel.panel-default.animate-opacity{ data: { 'ng-if' => '!loading' } }
