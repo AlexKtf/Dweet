@@ -5,7 +5,7 @@ class HomeController < ApplicationController
 
   def home_items
 
-    if stale? Category.main_category.order('created_at DESC').first
+    if stale? Video.order('created_at DESC').first
 
       videos = Video.order('created_at DESC').limit(10)
 
