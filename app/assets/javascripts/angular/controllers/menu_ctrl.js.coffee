@@ -1,15 +1,8 @@
 Dweet.controller 'MenuCtrl', ['$scope', '$http', '$location', ($scope, $http, $location) ->
 
-  $http.get('/categories.json')
-    .success (data, status) ->
-      $scope.categories = data
-    .error (data, status) ->
-      alert 'Error'
-
-
   $scope.$on '$routeChangeSuccess', () ->
-    if $scope.pageIsKnown?
-      $scope.known = false
+    if $scope.pageIsKnown
+      $scope.pageIsKnown = false
       return
 
     if $location.url() == '/'

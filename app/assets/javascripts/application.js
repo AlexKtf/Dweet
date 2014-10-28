@@ -8,5 +8,6 @@
 //= require_tree ./templates
 //= require angular/dweet
 //= require_tree ./angular/controllers
+//= require_tree ./angular/directives
 //= require youtube_embed
 //= require common

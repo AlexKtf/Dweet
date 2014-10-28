@@ -3,6 +3,7 @@
   %head
     %title Mek We Dweet TV - Bass Music Pon de Internet
     %base{ href: '/' }
+    %meta{ name: 'viewport', content:'width=device-width, initial-scale=1' }
     = stylesheet_link_tag 'application', media: 'all'
     = csrf_meta_tags
   %body{ data: { 'ng-app' => 'Dweet'} }
@@ -13,11 +14,12 @@
     #main-menu.col-md-12{ data: { 'ng-controller' => 'MenuCtrl' } }
       .col-md-1.col-xs-12
       .col-md-10.col-xs-12
+        %div{ data: { 'ng-cloak' => '', 'preload-category' => '', 'categories' => ActiveModel::ArraySerializer.new(Category.main_category.order('created_at DESC'), each_serializer: CategorySerializer).to_json } }
         %ul.nav.nav-pills.nav-justified
           %li{ data: { 'ng-click' => 'setActivePage(0)', 'ng-class' => '{active: activeCategoryId == 0}' } }
             = link_to root_path do
               %span.glyphicon.glyphicon-home
-          %li{ data: { 'ng-repeat' => 'category in categories', 'ng-click' => 'setActivePage(category.id)', 'ng-class' => '{active: category.id == activeCategoryId}' } }
+          %li{ data: { 'ng-repeat' => 'category in categories track by $index', 'ng-click' => 'setActivePage(category.id)', 'ng-class' => '{active: category.id == activeCategoryId}' } }
             %a{ data: { 'ng-href' => 'categories/{{category.slug}}' }}
               {{category.name}}
     #view{ data: { 'ng-view' => '' } }

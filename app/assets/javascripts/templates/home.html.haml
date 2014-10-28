@@ -2,41 +2,31 @@
   #loader{ data: { 'ng-if' => 'loading' } }
     %img{ data: { 'ng-src' => "#{asset_path('loading.gif')}" } }
   .col-md-1.col-xs-12
-  #videos-list.col-md-5.col-xs-12
+  #videos-list.col-md-4.col-xs-12
     .items.panel.panel-default.animate-opacity{ data: { 'ng-if' => '!loading' } }
       .panel-heading
         Last Videos & Playlists
       .panel-body
-        .col-md-12.media{ data: { 'ng-repeat' => 'video in videos' } }
+        .col-md-12.repeated-item{ data: { 'ng-repeat' => 'video in videos' } }
           .col-md-4.col-xs-12
             %a{ data: { 'ng-href' => 'categories/{{video.main_category_slug}}/{{video.slug}}' } }
               %img{ data: { 'ng-src' => '{{video.image_preview_url}}' } }
-          .col-md-8.col-xs-12
+          .col-md-8.col-xs-12.repeated-body
             %a{ data: { 'ng-href' => 'categories/{{video.main_category_slug}}/{{video.slug}}' } }
               %h4
                 {{video.title}}
-              %span.category-name
+              %span.repeated-category
                 {{video.main_category_name}} - {{video.category_name}}
-  .col-md-5.col-xs-12.animate-opacity{ data: { 'ng-if' => '!loading' } }
+  .col-md-6.col-xs-12.animate-opacity{ data: { 'ng-if' => '!loading' } }
     .panel.panel-default
       .panel-heading
         Top Videos
       .panel-body
-        .media{ data: { 'ng-repeat' => 'playlist in playlists' } }
-          %a.pull-left{ data: { 'ng-href' => 'categories/{{playlist.main_category_slug}}/{{playlist.slug}}' } }
-            %img.media-object{ data: { 'ng-src' => '{{playlist.image_preview_url}}' } }
-          .media-body
-            %h4.media-heading
-              {{playlist.title}}
+
     .panel.panel-default
       .panel-heading
         Top Playlists
       .panel-body
-        .media{ data: { 'ng-repeat' => 'playlist in playlists' } }
-          %a.pull-left{ data: { 'ng-href' => '{{}}' } }
-            %img.media-object{ data: { 'ng-src' => '{{playlist.image_preview_url}}' } }
-          .media-body
-            %h4.media-heading
-              {{playlist.title}}
+
     #logo-bottom
       Mek we Dweet Tv
