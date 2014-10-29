@@ -1,7 +1,7 @@
 #home-view
   #loader{ data: { 'ng-if' => 'loading' } }
     %img{ data: { 'ng-src' => "#{asset_path('loading.gif')}" } }
-  .col-md-1.col-xs-12
+  .empty-col.col-md-1.col-xs-12
   #videos-list.col-md-4.col-xs-12
     .items.panel.panel-default.animate-opacity{ data: { 'ng-if' => '!loading' } }
       .panel-heading
