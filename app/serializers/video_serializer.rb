@@ -1,5 +1,5 @@
 class VideoSerializer < ApplicationSerializer
-  attributes :id, :title, :url, :is_playlist, :slug, :image_preview_url, :yt_url, :main_category_name, :main_category_slug, :category_name, :category_slug
+  attributes :id, :title, :url, :is_playlist, :slug, :image_preview_url, :yt_url, :main_category_name, :main_category_slug, :category_name, :category_slug, :view
 
   def yt_url
     if object.is_playlist
@@ -30,4 +30,17 @@ class VideoSerializer < ApplicationSerializer
   def category_slug
     object.category.slug
   end
+
+  def to_json(*args)
+    Rails.cache.fetch expand_cache_key(self.class.to_s.underscore, cache_key, object.view, 'to-json') do
+      super
+    end
+  end
+
+  def serializable_hash
+    Rails.cache.fetch expand_cache_key(self.class.to_s.underscore, cache_key, object.view, 'serilizable-hash') do
+      super
+    end
+  end
+
 end

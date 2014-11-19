@@ -4,6 +4,8 @@ class Video < ActiveRecord::Base
   scope :videos, ->() { where(is_playlist: false) }
   scope :playlists, ->() { where(is_playlist: true) }
 
+  scope :top_10, ->() { order('videos.view DESC').limit(10) }
+
   validates :url, presence: true
 
   before_create :check_and_prepare

@@ -17,16 +17,35 @@
                 {{video.title}}
               %span.repeated-category
                 {{video.main_category_name}} - {{video.category_name}}
+              .repeated-views
+                {{video.view}} views
   .col-md-6.col-xs-12.animate-opacity{ data: { 'ng-if' => '!loading' } }
     .panel.panel-default
       .panel-heading
         Top Videos
       .panel-body
-
+        #slick-slider{ data: { 'slick' => '' } }
+          %div{ data: { 'ng-repeat' => 'video in top_videos' } }
+            %a{ data: { 'ng-href' => 'categories/{{video.main_category_slug}}/{{video.slug}}' } }
+              %img{ data: { 'ng-src' => '{{video.image_preview_url}}' } }
+            .top_title
+              %a{ data: { 'ng-href' => 'categories/{{video.main_category_slug}}/{{video.slug}}' } }
+                {{video.title | limitTo: 40}}{{video.title.length > 40 ? '...' : ''}}
+            .top_view
+              {{video.view}} views
     .panel.panel-default
       .panel-heading
         Top Playlists
       .panel-body
+        #slick-slider{ data: { 'slick' => '' } }
+          %div{ data: { 'ng-repeat' => 'playlist in top_playlists' } }
+            %a{ data: { 'ng-href' => 'categories/{{playlist.main_category_slug}}/{{playlist.slug}}' } }
+              %img{ data: { 'ng-src' => '{{playlist.image_preview_url}}' } }
+            .top_title
+              %a{ data: { 'ng-href' => 'categories/{{playlist.main_category_slug}}/{{playlist.slug}}' } }
+                {{playlist.title | limitTo: 40}}{{playlist.title.length > 40 ? '...' : ''}}
+            .top_view
+              {{playlist.view}} views
 
     #logo-bottom
       Mek we Dweet Tv

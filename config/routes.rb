@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     get '/:id', to: 'videos#show'
   end
 
+  resources :videos, only: :update
+
   get '/home-items', to: 'home#home_items'
 
   namespace :admin do
