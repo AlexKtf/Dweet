@@ -19,9 +19,6 @@
     .panel-body{ data: { 'ng-if' => '!loading && radioClip' } }
       #selected-video-iframe
         #radio-iframe{ data: { 'youtube-video' => '', 'video-id' => 'clip.url' } }
-    .panel-body{ data: { 'ng-if' => '!loading && selectedVideo && !radioClip' } }
-      #selected-video-iframe
-        %iframe{ allowfullscreen: '1', frameborder: '0', data: { 'ng-src' => '{{fullUrl}}'} }
 
 #category-submenu.col-md-4.col-xs-12
   .panel.panel-default.animate-opacity{ data: { 'ng-if' => '!loading' } }
@@ -48,12 +45,11 @@
               {{item.is_playlist ? 'PLAYLIST' : 'VIDEO'}}
       #category-submenu-entertain
         .cell-entertain
-          %button.btn.btn-default{ data: { 'ng-class' => '{active: radioClip}', 'ng-click' => 'setRadioClip()' } }
-            Launch Video Flow
+          %button.btn.btn-default{ 'title' => 'Random', data: { 'ng-click' => 'radioClipToRandom()', 'ng-class' => '{active: randomizeRadioClip}' } }
+            %span.play-icon.glyphicon.glyphicon-random
+            RANDOM
         .cell-entertain
-          %div.animate-opacity{ data: { 'ng-if' => 'radioClip' } }
-            %button.btn.btn-default{ 'title' => 'Random', data: { 'ng-click' => 'radioClipToRandom()', 'ng-class' => '{active: randomizeRadioClip}' } }
-              %span.play-icon.glyphicon.glyphicon-random
-            %button.btn.btn-default{ 'title' => 'Repeat', data: { 'ng-click' => 'radioClipToRepeat()', 'ng-class' => '{active: repeatizeRadioClip}' } }
-              %span.play-icon.glyphicon.glyphicon-repeat
+          %button.btn.btn-default{ 'title' => 'Repeat', data: { 'ng-click' => 'radioClipToRepeat()', 'ng-class' => '{active: repeatizeRadioClip}' } }
+            %span.play-icon.glyphicon.glyphicon-repeat
+            REPEAT
               

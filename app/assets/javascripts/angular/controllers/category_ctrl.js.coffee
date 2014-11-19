@@ -14,13 +14,8 @@ Dweet.controller 'CategoryCtrl',
     $scope.items = data.categories
     $scope.allItems = data.categories
     $scope.subcategories = data.meta.subcategories_names
-    if $routeParams['videoId']?
-      end_of_id = $routeParams['videoId'].indexOf('-')
-      id = $routeParams['videoId'].slice(0, end_of_id)
-      $scope.setSelectedVideo($filter('filter')($scope.items, {id: id})[0])
-    else
-      $scope.setSelectedVideo($scope.items[0])
     $scope.loading = false
+    $scope.setRadioClip()
   .error (data, status) ->
     alert 'Error'
 
@@ -37,10 +32,11 @@ Dweet.controller 'CategoryCtrl',
     return if $scope.radioClip
 
     $scope.initRadioClip()
-    if $scope.selectedFilter == 'all'
-      $scope.radioItems = filterFilter($scope.allItems, { is_playlist: false })
-    else
-      $scope.radioItems = filterFilter($scope.allItems, { category_name: $scope.selectedFilter, is_playlist: false })
+    $scope.radioItems = filterFilter($scope.allItems, { is_playlist: false })
+    if $routeParams['videoId']?
+      video_id = getVideoId()
+      angular.forEach $scope.radioItems, (item, key) ->
+        $scope.radioCurrentIndex = key if (video_id - item.id) == 0
     $scope.clip = $scope.radioItems[$scope.radioCurrentIndex]
     $scope.alreadyPlayedInRandom.push($scope.radioCurrentIndex)
 
@@ -74,6 +70,10 @@ Dweet.controller 'CategoryCtrl',
     $scope.radioClip = false
     $scope.setRadioClip()
 
+  $scope.setSelectedVideo = (video) ->
+    selected = $filter('filter')($scope.radioItems, {id: video.id})
+    return if selected.length == 0
+    $scope.clip = selected[0]
 
   $scope.$on 'youtube.player.ended', () ->
     $scope.nextRadioClip()
@@ -87,12 +87,9 @@ Dweet.controller 'CategoryCtrl',
   $scope.radioClipToRepeat = () ->
     $scope.repeatizeRadioClip = !$scope.repeatizeRadioClip
 
-
-  $scope.setSelectedVideo = (video) ->
-    $scope.clip = false
-    $scope.radioClip = false
-    $scope.selectedVideo = video
-    $scope.fullUrl = $sce.trustAsResourceUrl(video.yt_url)
+  getVideoId = () ->
+    end_of_id = $routeParams['videoId'].indexOf('-')
+    return $routeParams['videoId'].slice(0, end_of_id)
 
 
   $scope.itemTypeFilter = (type) ->
