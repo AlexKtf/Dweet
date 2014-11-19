@@ -15,7 +15,13 @@ Dweet.controller 'CategoryCtrl',
     $scope.allItems = data.categories
     $scope.subcategories = data.meta.subcategories_names
     $scope.loading = false
-    $scope.setRadioClip()
+    if $routeParams['videoId']?
+      $scope.videoSelected = filterFilter($scope.allItems, { id: getVideoId() })[0]
+
+    if $scope.videoSelected? and $scope.videoSelected.is_playlist
+      $scope.setSelectedVideo($scope.videoSelected.id)
+    else
+      $scope.setRadioClip()
   .error (data, status) ->
     alert 'Error'
 
@@ -33,10 +39,12 @@ Dweet.controller 'CategoryCtrl',
 
     $scope.initRadioClip()
     $scope.radioItems = filterFilter($scope.allItems, { is_playlist: false })
-    if $routeParams['videoId']?
-      video_id = getVideoId()
+    
+    if $scope.videoSelected
       angular.forEach $scope.radioItems, (item, key) ->
-        $scope.radioCurrentIndex = key if (video_id - item.id) == 0
+        $scope.radioCurrentIndex = key if ($scope.videoSelected.id - item.id) == 0
+      $scope.videoSelected = false
+
     $scope.clip = $scope.radioItems[$scope.radioCurrentIndex]
     $scope.alreadyPlayedInRandom.push($scope.radioCurrentIndex)
     $scope.addViewOnVideo($scope.clip)
@@ -66,18 +74,24 @@ Dweet.controller 'CategoryCtrl',
 
   $scope.automaticRepeatOrNot = () ->
     if $scope.repeatizeRadioClip
-      $scope.repeatRadioClip()
+      $scope.radioClip = false
+      $scope.setRadioClip()
     else
       $scope.letRepeatFlow = true
 
-  $scope.repeatRadioClip = () ->
-    $scope.radioClip = false
-    $scope.setRadioClip()
-
-  $scope.setSelectedVideo = (video) ->
-    selected = $filter('filter')($scope.radioItems, {id: video.id})
+  $scope.setSelectedVideo = (video_id) ->
+    selected = $filter('filter')($scope.allItems, {id: video_id})
     return if selected.length == 0
-    $scope.clip = selected[0]
+    if selected[0].is_playlist
+      $scope.fullUrl = $sce.trustAsResourceUrl(selected[0].yt_url)
+      $scope.playlist_title = selected[0].title
+      $scope.addViewOnVideo(selected[0])
+    else
+      $scope.fullUrl = false
+      $scope.radioClip = false
+      $scope.videoSelected = selected[0]
+      $scope.setRadioClip()
+      $scope.addViewOnVideo($scope.clip)
 
   $scope.$on 'youtube.player.ended', () ->
     $scope.nextRadioClip()
