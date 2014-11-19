@@ -1,6 +1,6 @@
 Dweet.controller 'CategoryCtrl',
-['$scope', '$http', '$routeParams', '$rootScope', '$sce', '$filter', '$youtube', '$timeout', 'filterFilter',
-($scope, $http, $routeParams, $rootScope, $sce, $filter, $youtube, $timeout, filterFilter) ->
+['$scope', '$http', '$routeParams', '$rootScope', '$sce', '$filter', '$youtube', '$timeout', 'filterFilter', 'Video',
+($scope, $http, $routeParams, $rootScope, $sce, $filter, $youtube, $timeout, filterFilter, Video) ->
 
   $scope.selectedFilter = 'all'
   $scope.radioClip = false
@@ -39,6 +39,7 @@ Dweet.controller 'CategoryCtrl',
         $scope.radioCurrentIndex = key if (video_id - item.id) == 0
     $scope.clip = $scope.radioItems[$scope.radioCurrentIndex]
     $scope.alreadyPlayedInRandom.push($scope.radioCurrentIndex)
+    $scope.addViewOnVideo($scope.clip)
 
   $scope.nextRadioClip = () ->
     if !$scope.randomizeRadioClip
@@ -46,9 +47,12 @@ Dweet.controller 'CategoryCtrl',
 
       return $scope.automaticRepeatOrNot() if !clip?
       $scope.clip = clip
+      $scope.addViewOnVideo($scope.clip)
     else
       return $scope.automaticRepeatOrNot() if $scope.alreadyPlayedInRandom.length == $scope.radioItems.length
       $scope.clip = $scope.getRandomAvalaibleVideo()
+      $scope.addViewOnVideo($scope.clip)
+
 
 
   $scope.getRandomAvalaibleVideo = () ->
@@ -90,6 +94,13 @@ Dweet.controller 'CategoryCtrl',
   getVideoId = () ->
     end_of_id = $routeParams['videoId'].indexOf('-')
     return $routeParams['videoId'].slice(0, end_of_id)
+
+  $scope.addViewOnVideo = (video) ->
+    Video.update { id: video.id, video: { view: video.view + 1 } }
+    , success = (video) ->
+      console.log 'success'
+    , error = () ->
+      console.log 'fail'
 
 
   $scope.itemTypeFilter = (type) ->

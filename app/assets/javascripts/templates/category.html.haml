@@ -43,6 +43,8 @@
             %span.repeated-category
               {{item.category_name}} -
               {{item.is_playlist ? 'PLAYLIST' : 'VIDEO'}}
+            .repeated-views
+              {{item.view}} views
       #category-submenu-entertain
         .cell-entertain
           %button.btn.btn-default{ 'title' => 'Random', data: { 'ng-click' => 'radioClipToRandom()', 'ng-class' => '{active: randomizeRadioClip}' } }
