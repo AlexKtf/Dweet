@@ -8,8 +8,8 @@
 //= require_tree ./templates
 //= require angular/dweet
 //= require slick.min
+//= require_tree ./angular/factories
+//= require_tree ./angular/services
 //= require_tree ./angular/controllers
 //= require_tree ./angular/directives
-//= require_tree ./angular/factories
-//= require youtube_embed
 //= require common

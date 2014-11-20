@@ -4,24 +4,10 @@
 .col-md-6.col-xs-12
   #selected-video-block.panel.panel-default.animate-opacity{ data: { 'ng-if' => '!loading' } }
     .panel-heading
-      %span{ data: { 'ng-if' => 'radioClip && !fullUrl'} }
-        {{clip.title}}
-      %span{ data: { 'ng-if' => 'fullUrl' } }
-        {{playlist_title}}
-
-      #radio-between.pull-right{ data: { 'ng-if' => '!loading && radioClip && items.length > 1 && !fullUrl' } }
-        %a.animate-opacity{ data: {'ng-click' => 'nextRadioClip()', 'ng-show' => '!letRepeatFlow' } }
-          Next
-          %span.glyphicon.glyphicon-step-forward
-        %a.animate-opacity{ data: {'ng-click' => 'repeatRadioClip()', 'ng-show' => 'letRepeatFlow' } }
-          Repeat
-          %span.glyphicon.glyphicon-repeat
-    .panel-body{ data: { 'ng-if' => '!loading && radioClip && !fullUrl' } }
+      {{clip.title}}
+    .panel-body{ data: { 'ng-if' => '!loading' } }
       #selected-video-iframe
-        #radio-iframe{ data: { 'youtube-video' => '', 'video-id' => 'clip.url' } }
-    .panel-body{ data: { 'ng-if' => '!loading && fullUrl' } }
-      #selected-video-iframe
-        %iframe{ allowfullscreen: '1', frameborder: '0', data: { 'ng-src' => '{{fullUrl}}'} }
+        #radio-iframe{ data: { 'youtube-video' => '' } }
 
 #category-submenu.col-md-4.col-xs-12
   .panel.panel-default.animate-opacity{ data: { 'ng-if' => '!loading' } }
@@ -40,7 +26,7 @@
         .col-md-12.repeated-item{ class: 'animate-opacity', data: { 'ng-repeat' => 'item in items | filter: searchVideo', 'ng-click' => 'setSelectedVideo(item.id)' } }
           .col-md-4.col-xs-12
             %img{ data: { 'ng-src' => '{{item.image_preview_url}}' } }
-          .col-md-8.col-xs-12.repeated-body{ data: { 'ng-class' => '{active: selectedVideo.id == item.id || clip.id == item.id}' } }
+          .col-md-8.col-xs-12.repeated-body{ data: { 'ng-class' => '{active: clip.id == item.id}' } }
             {{item.title}}
             %br
             %span.repeated-category
