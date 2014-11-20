@@ -1,4 +1,4 @@
-window.Dweet = angular.module 'Dweet', ['ngResource', 'ngRoute', 'ngAnimate', 'templates', 'youtube-embed']
+window.Dweet = angular.module 'Dweet', ['ngResource', 'ngRoute', 'ngAnimate', 'templates']
 
 Dweet.config ['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) ->
   $routeProvider.
@@ -19,5 +19,12 @@ Dweet.config ['$routeProvider', '$locationProvider', ($routeProvider, $locationP
 
   $locationProvider.html5Mode(true)
 ]
+
+Dweet.run ($window, $rootScope, $route, $youtube) ->
+  $window.onYouTubeIframeAPIReady = () ->
+    $rootScope.$apply () ->
+      $youtube.ready = true
+      if $route.current.controller != 'HomeCtrl'
+        $youtube.loadPlayer()
 
       
