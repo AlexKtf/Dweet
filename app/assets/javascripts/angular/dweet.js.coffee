@@ -20,11 +20,12 @@ Dweet.config ['$routeProvider', '$locationProvider', ($routeProvider, $locationP
   $locationProvider.html5Mode(true)
 ]
 
-Dweet.run ($window, $rootScope, $route, $youtube) ->
+Dweet.run [ '$window', '$rootScope', '$route', '$youtube', ($window, $rootScope, $route, $youtube) ->
   $window.onYouTubeIframeAPIReady = () ->
     $rootScope.$apply () ->
       $youtube.ready = true
       if $route.current.controller != 'HomeCtrl'
         $youtube.loadPlayer()
+]
 
       
