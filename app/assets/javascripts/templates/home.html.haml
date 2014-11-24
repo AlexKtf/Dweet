@@ -1,8 +1,7 @@
 #home-view
   #loader{ data: { 'ng-if' => 'loading' } }
     %img{ data: { 'ng-src' => "#{asset_path('loading.gif')}" } }
-  .empty-col.col-md-1.col-xs-12
-  #videos-list.col-md-4.col-xs-12
+  #videos-list.col-md-5.col-xs-12
     .items.panel.panel-default.animate-opacity{ data: { 'ng-if' => '!loading' } }
       .panel-heading
         Last Videos & Playlists
@@ -19,7 +18,7 @@
                 {{video.main_category_name}} - {{video.category_name}}
               .repeated-views
                 {{video.view}} views
-  .col-md-6.col-xs-12.animate-opacity{ data: { 'ng-if' => '!loading' } }
+  .col-md-7.col-xs-12.animate-opacity{ data: { 'ng-if' => '!loading' } }
     .panel.panel-default
       .panel-heading
         Top Videos
@@ -32,7 +31,7 @@
               %a{ data: { 'ng-href' => 'categories/{{video.main_category_slug}}/{{video.slug}}' } }
                 {{video.title | limitTo: 40}}{{video.title.length > 40 ? '...' : ''}}
             .top_view
-              {{video.view}} views
+              {{video.main_category_name}}
     .panel.panel-default
       .panel-heading
         Top Playlists
@@ -45,7 +44,7 @@
               %a{ data: { 'ng-href' => 'categories/{{playlist.main_category_slug}}/{{playlist.slug}}' } }
                 {{playlist.title | limitTo: 40}}{{playlist.title.length > 40 ? '...' : ''}}
             .top_view
-              {{playlist.view}} views
+              {{video.main_category_name}}
 
     #logo-bottom
       Mek we Dweet Tv
