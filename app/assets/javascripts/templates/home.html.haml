@@ -1,16 +1,16 @@
 #home-view
   #loader{ data: { 'ng-if' => 'loading' } }
     %img{ data: { 'ng-src' => "#{asset_path('loading.gif')}" } }
-  #videos-list.col-md-5.col-xs-12
+  #videos-list.col-md-5.col-sm-12.col-xs-12
     .items.panel.panel-default.animate-opacity{ data: { 'ng-if' => '!loading' } }
       .panel-heading
         Last Videos & Playlists
       .panel-body
-        .col-md-12.repeated-item{ data: { 'ng-repeat' => 'video in videos' } }
-          .col-md-4.col-xs-12
+        .col-md-12.col-sm-6.col-xs-12.repeated-item{ data: { 'ng-repeat' => 'video in videos' } }
+          .col-md-4.col-sm-6.col-xs-12
             %a{ data: { 'ng-href' => 'categories/{{video.main_category_slug}}/{{video.slug}}' } }
               %img{ data: { 'ng-src' => '{{video.image_preview_url}}' } }
-          .col-md-8.col-xs-12.repeated-body
+          .col-md-8.col-sm-6.col-xs-12.repeated-body
             %a{ data: { 'ng-href' => 'categories/{{video.main_category_slug}}/{{video.slug}}' } }
               %h4
                 {{video.title}}
@@ -18,7 +18,7 @@
                 {{video.main_category_name}} - {{video.category_name}}
               .repeated-views
                 {{video.view}} views
-  .col-md-7.col-xs-12.animate-opacity{ data: { 'ng-if' => '!loading' } }
+  .col-md-7.col-sm-12.col-xs-12.animate-opacity{ data: { 'ng-if' => '!loading' } }
     .panel.panel-default
       .panel-heading
         Top Videos
