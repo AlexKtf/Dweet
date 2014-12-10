@@ -9,7 +9,7 @@
         #selected-video-iframe
           #radio-iframe{ data: { 'youtube-video' => '' } }
 
-  #category-submenu.col-md-5.col-xs-12
+  #category-submenu.col-md-5.col-sm-12.col-xs-12
     .panel.panel-default.animate-opacity{ data: { 'ng-if' => '!loading' } }
       .panel-heading
         {{categoryName}}
@@ -23,10 +23,10 @@
           %button.btn.btn-default{ type: 'button', data: { 'ng-repeat' => 'sub in subcategories', 'ng-click' => "itemTypeFilter(sub)", 'ng-class' => "{active: selectedFilter == sub}"  } }
             {{sub}}
         #category-submenu-items
-          .col-md-12.repeated-item{ class: 'animate-opacity', data: { 'ng-repeat' => 'item in items | filter: searchVideo', 'ng-click' => 'setSelectedVideo(item.id)' } }
-            .col-md-4.col-xs-12
+          .col-md-12.col-sm-6.col-xs-12.repeated-item{ class: 'animate-opacity', data: { 'ng-repeat' => 'item in items | filter: searchVideo', 'ng-click' => 'setSelectedVideo(item.id)' } }
+            .col-md-4.col-sm-6.col-xs-12
               %img{ data: { 'ng-src' => '{{item.image_preview_url}}' } }
-            .col-md-8.col-xs-12.repeated-body{ data: { 'ng-class' => '{active: clip.id == item.id}' } }
+            .col-md-8.col-sm-6.col-xs-12.repeated-body{ data: { 'ng-class' => '{active: clip.id == item.id}' } }
               {{item.title}}
               %br
               %span.repeated-category
