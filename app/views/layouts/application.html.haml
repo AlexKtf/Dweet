@@ -5,7 +5,6 @@
     %base{ href: '/' }
     %meta{ name: 'viewport', content:'width=device-width, initial-scale=1' }
     = stylesheet_link_tag 'application', media: 'all'
-    %link{ rel:'stylesheet', type:'text/css', href:'//cdn.jsdelivr.net/jquery.slick/1.3.14/slick.css' }
     = csrf_meta_tags
   %body{ data: { 'ng-app' => 'Dweet'} }
     #header.col-md-12
@@ -24,3 +23,4 @@
     #view{ data: { 'ng-view' => '' } }
 
     = javascript_include_tag 'application', defer: true
+    %link{ rel:'stylesheet', type:'text/css', href:'//cdn.jsdelivr.net/jquery.slick/1.3.14/slick.css' }
