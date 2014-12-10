@@ -8,6 +8,7 @@ class VideosController < ApplicationController
   def update
     video = Video.find(params[:id])
     video.update_attributes!(video_params)
+
     respond_to do |format|
       format.json { render json: video, root: false }
     end

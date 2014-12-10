@@ -31,16 +31,4 @@ class VideoSerializer < ApplicationSerializer
     object.category.slug
   end
 
-  def to_json(*args)
-    Rails.cache.fetch expand_cache_key(self.class.to_s.underscore, cache_key, object.view, 'to-json') do
-      super
-    end
-  end
-
-  def serializable_hash
-    Rails.cache.fetch expand_cache_key(self.class.to_s.underscore, cache_key, object.view, 'serilizable-hash') do
-      super
-    end
-  end
-
 end

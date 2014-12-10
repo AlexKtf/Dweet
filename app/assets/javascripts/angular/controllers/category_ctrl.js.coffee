@@ -27,7 +27,8 @@ Dweet.controller 'CategoryCtrl',
       $scope.setPlaylist()
     else
       $scope.setVideo()
-    
+
+    $scope.addViewOnVideo($scope.clip)
 
   .error (data, status) ->
     alert 'Error'

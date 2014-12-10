@@ -13,7 +13,7 @@ class CategoriesController < ApplicationController
   def show
     @category = Category.find(params[:id])
 
-    if stale? @category.all_videos.order('created_at DESC').first
+    if stale? @category
 
       @videos = @category.all_videos.order('created_at DESC')
 
