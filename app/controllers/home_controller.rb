@@ -8,7 +8,14 @@ class HomeController < ApplicationController
     videos = Video.order('created_at DESC').limit(10)
 
     respond_to do |format|
-      format.json { render json: [videos, Video.videos.top_10, Video.playlists.top_10], except: :yt_url, root: false }
+      format.json do
+        render json: videos,
+        meta: {
+          top_videos: ActiveModel::ArraySerializer.new(Video.videos.top_10, each_serializer: VideoSerializer),
+          top_playlists: ActiveModel::ArraySerializer.new(Video.playlists.top_10, each_serializer: VideoSerializer)
+        },
+        except: :yt_url
+      end
     end
     
   end
