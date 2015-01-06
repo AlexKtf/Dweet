@@ -9,6 +9,8 @@ class Category < ActiveRecord::Base
 
   scope :main_category, -> () { where(main_category_id: nil) }
 
+  after_touch :touch_main, if: :main_category_id
+
 
   def all_videos
     return videos unless main_category_id.nil?
@@ -27,6 +29,10 @@ class Category < ActiveRecord::Base
 
   def slug
     "#{id}-#{name.parameterize}"
+  end
+
+  def touch_main
+    main_category.touch
   end
 
 end
