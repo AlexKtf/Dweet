@@ -1,4 +1,4 @@
-window.Dweet = angular.module 'Dweet', ['ngResource', 'ngRoute', 'ngAnimate', 'templates']
+window.Dweet = angular.module 'Dweet', ['ngResource', 'ngRoute', 'ngAnimate', 'templates', 'socialLinks']
 
 Dweet.config ['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) ->
   $routeProvider.

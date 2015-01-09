@@ -8,6 +8,19 @@
       .panel-body{ data: { 'ng-if' => '!loading' } }
         #selected-video-iframe
           #radio-iframe{ data: { 'youtube-video' => '' } }
+        #social.col-md-12
+          .col-md-4.col-sm-12.col-xs-12
+            %a{ data: { 'social-facebook' => '' } }
+              %img{ data: { 'ng-src' => "#{asset_path('fb.jpg')}" } }
+              Bass Music Pon Facebook
+          .col-md-4.col-sm-12.col-xs-12
+            %a{ data: { 'social-gplus' => '' } }
+              %img{ data: { 'ng-src' => "#{asset_path('gplus.jpg')}" } }
+              Bass Music Pon Google Plus
+          .col-md-4.col-sm-12.col-xs-12
+            %a{ data: { 'social-twitter' => '' } }
+              %img{ data: { 'ng-src' => "#{asset_path('twitter.jpg')}" } }
+              Bass Music Pon Twitter
 
   #category-submenu.col-md-5.col-sm-12.col-xs-12
     .panel.panel-default.animate-opacity{ data: { 'ng-if' => '!loading' } }

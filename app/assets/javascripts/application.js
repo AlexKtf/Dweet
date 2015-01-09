@@ -8,6 +8,7 @@
 //= require_tree ./templates
 //= require angular/dweet
 //= require slick.min
+//= require social_links
 //= require_tree ./angular/factories
 //= require_tree ./angular/services
 //= require_tree ./angular/controllers
