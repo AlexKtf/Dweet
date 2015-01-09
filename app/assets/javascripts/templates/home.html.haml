@@ -19,7 +19,7 @@
               .repeated-views
                 {{video.view}} views
   .col-md-7.col-sm-12.col-xs-12.animate-opacity{ data: { 'ng-if' => '!loading' } }
-    .panel.panel-default
+    #top-videos.panel.panel-default
       .panel-heading
         Top Videos
       .panel-body
@@ -45,6 +45,5 @@
                 {{playlist.title | limitTo: 40}}{{playlist.title.length > 40 ? '...' : ''}}
             .top_view
               {{video.main_category_name}}
-
     #logo-bottom
-      Mek we Dweet Tv
+      MEK WE DWEET TV
