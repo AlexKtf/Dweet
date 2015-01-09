@@ -14,12 +14,12 @@ class VideoSerializer < ApplicationSerializer
   end
 
   def main_category_name
-    return object.category.main_category.name unless object.category.main_category_id.nil?
+    return object.category.main_category.name unless object.category.main_category.nil?
     object.category.name
   end
 
   def main_category_slug
-    return object.category.main_category.slug unless object.category.main_category_id.nil?
+    return object.category.main_category.slug unless object.category.main_category.nil?
     object.category.slug
   end
 
