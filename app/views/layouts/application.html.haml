@@ -10,7 +10,6 @@
     #header.col-md-12
       #banner
         #logo
-          = link_to 'Mek We Dweet Tv', root_path
     #main-menu.col-md-12{ data: { 'ng-controller' => 'MenuCtrl' } }
       %div{ data: { 'ng-cloak' => '', 'preload-category' => '', 'categories' => ActiveModel::ArraySerializer.new(Category.main_category.order('created_at DESC'), each_serializer: CategorySerializer).to_json } }
       %ul.nav.nav-pills.nav-justified
