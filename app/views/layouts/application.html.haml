@@ -4,6 +4,7 @@
     %title Mek We Dweet TV - Bass Music Pon de Internet
     %base{ href: '/' }
     %meta{ name: 'viewport', content:'width=device-width, initial-scale=1' }
+    %meta{ name: 'description', content:'Web TV for the Bass Music !' }
     = stylesheet_link_tag 'application', media: 'all'
     = csrf_meta_tags
   %body{ data: { 'ng-app' => 'Dweet'} }
@@ -23,3 +24,11 @@
 
     = javascript_include_tag 'application', defer: true
     %link{ rel:'stylesheet', type:'text/css', href:'//cdn.jsdelivr.net/jquery.slick/1.3.14/slick.css' }
+    %script
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-58438014-1', 'auto');
+      ga('send', 'pageview');
