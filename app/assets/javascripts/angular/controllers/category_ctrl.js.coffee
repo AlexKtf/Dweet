@@ -61,12 +61,11 @@ Dweet.controller 'CategoryCtrl',
     $scope.addViewOnVideo($scope.clip)
 
 
+  $scope.$on 'youtube::playing', (e, youtube) ->
+    if $scope.clip.id != youtube.getCurrentVideoId()
+      $scope.clip = $filter('filter')($scope.allItems, {url: youtube.getCurrentVideoId()})[0]
 
-  $scope.video_id = $youtube.videoId
-  $scope.$on 'youtube::buffering', (e, youtube) ->
-    $scope.clip = $filter('filter')($scope.allItems, {url: youtube.getCurrentVideoId()})[0]
 
-  
   $scope.radioClipToRandom = () ->
     $scope.randomizeRadioClip = !$scope.randomizeRadioClip
     $youtube.player.setShuffle($scope.randomizeRadioClip)
@@ -88,7 +87,7 @@ Dweet.controller 'CategoryCtrl',
 
   $scope.setAllItemsIds = () ->
     $scope.allItemsIds = []
-    $filter('filter')($scope.allItems, (item) ->  return $scope.allItemsIds.push(item.url) )
+    $filter('filter')($scope.items, (item) ->  return $scope.allItemsIds.push(item.url) )
 
 
   $scope.itemTypeFilter = (type) ->
