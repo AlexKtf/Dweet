@@ -1,6 +1,6 @@
 Dweet.controller 'CategoryCtrl',
-['$scope', '$http', '$routeParams', '$rootScope', '$sce', '$filter', '$youtube', '$timeout', 'filterFilter', 'Video',
-($scope, $http, $routeParams, $rootScope, $sce, $filter, $youtube, $timeout, filterFilter, Video) ->
+['$scope', '$http', '$routeParams', '$rootScope', '$filter', '$youtube', 'filterFilter', 'Video',
+($scope, $http, $routeParams, $rootScope, $filter, $youtube, filterFilter, Video) ->
 
   $scope.selectedFilter = 'all'
   $scope.loading = true
@@ -13,7 +13,6 @@ Dweet.controller 'CategoryCtrl',
     $scope.categoryName = data.meta.category_name
     $scope.items = data.categories
     $scope.allItems = data.categories
-    $scope.setAllItemsIds()
     $scope.subcategories = data.meta.subcategories_names
 
     $scope.loading = false
@@ -42,8 +41,7 @@ Dweet.controller 'CategoryCtrl',
   $scope.setVideo = () ->
     $youtube.playlist = null
     $scope.setAllItemsIds()
-    index_video = $scope.allItemsIds.indexOf($scope.clip.url)
-    $youtube.videoId = $scope.allItemsIds.splice(index_video, 1)
+    $youtube.videoId = $scope.allItemsIds[0]
     $youtube.videoPlaylist = $scope.allItemsIds
 
   $scope.setSelectedVideo = (video_id) ->
@@ -60,9 +58,13 @@ Dweet.controller 'CategoryCtrl',
     $youtube.loadPlayer()
     $scope.addViewOnVideo($scope.clip)
 
+  $scope.$on 'youtube::ready', (e, youtube) ->
+    if !$scope.clip.is_playlist
+      index_video = $scope.allItemsIds.indexOf($scope.clip.url)
+      $youtube.player.playVideoAt(index_video + 1)
 
   $scope.$on 'youtube::playing', (e, youtube) ->
-    if $scope.clip.id != youtube.getCurrentVideoId()
+    if $scope.clip.id != youtube.getCurrentVideoId() and !$scope.clip.is_playlist
       $scope.clip = $filter('filter')($scope.allItems, {url: youtube.getCurrentVideoId()})[0]
 
 
@@ -87,7 +89,8 @@ Dweet.controller 'CategoryCtrl',
 
   $scope.setAllItemsIds = () ->
     $scope.allItemsIds = []
-    $filter('filter')($scope.items, (item) ->  return $scope.allItemsIds.push(item.url) )
+    videoItems = filterFilter($scope.items, { is_playlist: false })
+    $filter('filter')(videoItems, (item) ->  return $scope.allItemsIds.push(item.url) )
 
 
   $scope.itemTypeFilter = (type) ->
