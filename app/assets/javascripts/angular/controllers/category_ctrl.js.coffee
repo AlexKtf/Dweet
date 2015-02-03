@@ -5,7 +5,7 @@ Dweet.controller 'CategoryCtrl',
   $scope.selectedFilter = 'all'
   $scope.loading = true
   $scope.randomizeRadioClip = false
-  $scope.repeatizeRadioClip = false
+  $scope.repeatizeRadioClip = true
 
   $http.get('/categories/'+$routeParams['id']+'.json')
   .success (data, status) ->
@@ -56,12 +56,15 @@ Dweet.controller 'CategoryCtrl',
       $scope.setVideo()
 
     $youtube.loadPlayer()
+
     $scope.addViewOnVideo($scope.clip)
 
   $scope.$on 'youtube::ready', (e, youtube) ->
     if !$scope.clip.is_playlist
       index_video = $scope.allItemsIds.indexOf($scope.clip.url)
       $youtube.player.playVideoAt(index_video + 1)
+      $youtube.player.setShuffle($scope.randomizeRadioClip)
+      $youtube.player.setLoop($scope.repeatizeRadioClip)
 
   $scope.$on 'youtube::playing', (e, youtube) ->
     if $scope.clip.url != youtube.getCurrentVideoId() and !$scope.clip.is_playlist
