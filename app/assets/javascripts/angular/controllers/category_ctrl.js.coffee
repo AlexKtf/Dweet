@@ -64,8 +64,9 @@ Dweet.controller 'CategoryCtrl',
       $youtube.player.playVideoAt(index_video + 1)
 
   $scope.$on 'youtube::playing', (e, youtube) ->
-    if $scope.clip.id != youtube.getCurrentVideoId() and !$scope.clip.is_playlist
+    if $scope.clip.url != youtube.getCurrentVideoId() and !$scope.clip.is_playlist
       $scope.clip = $filter('filter')($scope.allItems, {url: youtube.getCurrentVideoId()})[0]
+      $scope.addViewOnVideo($scope.clip)
 
 
   $scope.radioClipToRandom = () ->
